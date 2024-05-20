@@ -1,0 +1,56 @@
+Una veterinaria ubicada en las sierras cordobesas, requiere desarrollar un sistema para gestionar eficientemente el registro de las mascotas atendidas en el establecimiento. Nos centraremos en el diseño y modelado de las fichas medicas de las mascotas.
+El objetivo es proporcionar una herramienta eficaz para gestionar el historial medico de las mascotas, permiiendo un seguimiento detallado de cada consulta.
+
+El sistema debe contar con las siguientes funcionalidades:
+
+Gestion de Razas:
+- Permitir dar de alta nuevas razas.
+- Permitir modificar razas ya registradas.
+- Implementar la opcion de eliminar razas del sistema, teniendo en cuenta que la misma no sea utilizada.
+
+Gestion de Mascotas:
+- Permitir dar de alta nuevas mascotas y/o modificar las mismas, incluyendo informacion detellada como nombre, especie, raza y datos de contacto del propietario.
+- Implementar la opcion de eliminar mascotas del sistema, garantizando la integridad del historial medico.
+
+Gestion de Personas:
+- Permitir dar de alta nuevas personas en el sistema (propietarios de mascotas o veterinarios).
+- Permir modificar personas ya registradas.
+- Implementar la opcion de eliminar personas del sistema, teniendo en cuenta que la misma no sea utilizada.
+
+Gestion de Diagnostico:
+- Permitir dar de alta nuevos diagnosticos.
+- Permitir modificar diagnosticos ya registrados.
+- Implementar la opcion de eliminar diagnosticos del sistema, garantizando la integridad del historial medico.
+
+Gestion de Tratamientos:
+- Permitir dar de alta nuevos tratamientos.
+- Permitir modificar tratamientos ya registrados.
+- Implementar la opcion de eliminar tratamientos del sistema, garantizando la integridad del historial medico.
+
+Gestion de Vacunas:
+- Permitir dar de alta nuevas vacunas.
+- Permitir modificar vacunas ya registradas.
+- Implementar la opcion de eliminar vacunas del sistema, garantizando la integridad del historial medico.
+
+Gestion de Fichas Medicas:
+- Cada mascota atendida debe contar con una ficha medica individual que detalla su historial de consultas.
+- Cada consulta, debe incluir informacion relevante como fecha, veterinario que lo atendio, diagnostico, tratamiento recetado, vacunas administradas, y cualquier otra observacion medica pertinente.
+- Facilitar la busqueda y acceso rapido a la ficha medica de una mascota especifica.
+
+Importante:
+* Cada ficha medica debe ser registrada en un archivo separado para facilitar la organizacion y la busqueda eficiente de informacion.
+* Utilizar un sistema de archivos que permita el acceso facil y seguro a las fichas medicas cuando sea necesario.
+
+Informacion que debe proporcionar el sistema:
+* Listado de mascotas activa.
+* Listado de tratamientos.
+* Listado de diagnosticos.
+* Listado de vacunas.
+* Listado de razas.
+* Listado de veterinarios.
+* Listado de clientes (propietarios de mascotas).
+* Consultar la cantidad de mascotas que tiene un cliente.
+* Calcular la cantidad de consulta por mascotas.
+* Calcular la cantidad de tratamientos aplicados.
+* Ranking de diagnosticos.
+* Cantidad de razas por diagnostico.
