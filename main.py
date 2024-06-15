@@ -1,7 +1,7 @@
-from Prueba_repositorio.controlador.ControladorMascotas import ControladorMascotas
+from controlador.ControladorGeneral import ControladorGeneral
 
 def inicio():
-    controlador = ControladorMascotas()
+    controlador = ControladorGeneral()
     controlador.menu()
 
 if __name__ =="__main__":

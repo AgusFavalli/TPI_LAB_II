@@ -1,10 +1,11 @@
-class VistaMascotas:
+class VistaGeneral:
     def bienvenida(self):
-        print("-----BIENVENIDOS-----")
-        print("1 - ___")
-        print("2 - ___")
-        print("3 - ___")
-        print("4 - ___")
+        print("-----BIENVENIDOS-----"
+              "\n1 - Listado mascotas activas"
+              "\n2 - ___"
+              "\n3 - ___"
+              "\n4 - ___"
+              )
 
     def menu(self):
         return input("Ingrese una opcion")

@@ -1,0 +1,3 @@
+agustin, reconquista 248, 234567, 1, 1
+pedro, fsdgd, 3456, 2, 2
+jose, ghjh, 98765, 3,3
