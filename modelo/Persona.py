@@ -1,4 +1,4 @@
-class Propietario:
+class Persona:
     def __init__(self, nombre, direccion, telefono, codigo, numMascota):
         self._nombre = nombre
         self._direccion= direccion
