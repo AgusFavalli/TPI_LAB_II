@@ -1,14 +1,17 @@
-class Propietario:
-    def __init__(self, nombre, direccion, telefono, codigo, numMascota):
+class Persona:
+    def __init__(self, codigo, nombre, direccion, telefono):
+        self._codigo = codigo
         self._nombre = nombre
-        self._direccion= direccion
+        self._direccion = direccion
         self._telefono = telefono
-        self._codigo=codigo
-        self._numMascota= numMascota
 
 
 
 #SETTERS
+#.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-
+    def setCodigo(self, dato):
+        self._codigo = dato
+#.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-        
     @property
     def nombre(self):
         return self._nombre
@@ -42,18 +45,13 @@ class Propietario:
     @property
     def direccion(self):
         return self._direccion
-#.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-
     @direccion.setter
     def direccion(self, value):
         if not isinstance(value, str):
             raise ValueError("La dirección debe ser una cadena de caracteres")
         self._direccion = value
-#.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-
-    def setCodigo(self, dato):
-        self._codigo = dato
-#.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-
-    def setNumMascota(self, dato):
-        self._numMascota = dato
+
+
 
 # GETTERS
    
@@ -67,14 +65,21 @@ class Propietario:
         return self._telefono
     
     def getCodigo(self):
-        return self._codigo
+       return self._codigo
 
-    def getNumMascota(self):
-        return self.getNumMascota
-    
 #.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-
     def __str__(self):
         return f"{self.getNombre()}, {self.getDireccion()}, {self.getTelefono()}, {self.getCodigo()}"
 
     def __repr__(self):
         return f"{self.getNombre()}, {self.getDireccion()}, {self.getTelefono()}, {self.getCodigo()}"
+    
+class Veterinario(Persona):
+    def __init__(self, codigo, nombre, direccion, telefono):
+        super().__init__(codigo, nombre, direccion, telefono)
+        self.pacientes = []
+
+class Propietario(Persona):
+    def __init__(self, codigo, nombre, direccion, telefono, mascotas=None):
+        super().__init__(codigo, nombre, direccion, telefono)
+        self.mascotas = mascotas if mascotas is not None else []
