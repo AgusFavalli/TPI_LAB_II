@@ -1,5 +1,6 @@
 class VistaRaza:
    def menuRaza(self):
+         print("\nMenú de Gestión de Razas")
          print("1. Dar de alta nuevas razas")
          print("2. Modificar razas registradas")
          print("3. Eliminar razas del sistema")
