@@ -65,7 +65,17 @@ class ControllerPersona:
     def listarPersonas(self):
         self.vista.mostrarListaPersonas(self.personas)
 
-# función que permite consultar personas
+#funcion alternativa para buscar personas
+    def buscar_persona(lista, termino_busqueda):
+      resultados = []
+      for persona in lista:
+         nombre_completo = persona[2]
+         nombre_pila, apellido = nombre_completo.split()
+         if termino_busqueda.lower() in nombre_pila.lower() or termino_busqueda.lower() in apellido.lower():
+               resultados.append(persona)
+      return resultados
+
+# función que permite consultar personas.
     def consultarPersona(self):
         codigo = self.vista.seleccionarPersona()
         persona = next((p for p in self.personas if p.codigo == codigo), None)

@@ -1,0 +1,30 @@
+01;Bulldog
+02;Poodle
+03;Chihuahua
+04;Dachshund
+05;Beagle
+06;Boxer
+07;Cocker Spaniel
+08;Shih Tzu
+09;Pug
+10;Rottweiler
+11;Golden Retriever
+12;French Bulldog
+13;German Shepherd
+14;Doberman Pinscher
+15;Shetland Sheepdog
+16;Maltese
+17;Yorkshire Terrier
+18;Pomeranian
+19;Chow Chow
+20;Australian Shepherd
+21;Corgi
+22;Basset Hound
+23;Collie
+24;Dalmatian
+25;Bulldog Français
+26;Cane Corso
+27;Pitbull
+28;Great Dane
+29;Boxer Mexicano
+30;Staffordshire Bull Terrier
