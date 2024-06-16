@@ -1,0 +1,2 @@
+1;Diagnostico1;Observaciones1;1
+2;Diagnostico2;Observaciones2;2155;xas;axsasx;{'nombre': 'Mascota1', 'especie': 'Especie1', 'raza': 'Raza1', 'propietario': 'Propietario1'}

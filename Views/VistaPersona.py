@@ -7,6 +7,7 @@ class VistaPersona:
 
 # esta función trae el menu que corresponde a la gestion de personas
     def mostrarMenuPersona(self):
+        print("\nMenú de Gestión de Personas")
         print("1- Ver lista personas")
         print("2- Consultar persona")
         print("3- Agregar una persona")
