@@ -10,4 +10,4 @@ class Raza:
         return self._nombre
 
     def __str__(self):
-        return f"{self.getCodigo()}, {self.getNombre()}"
+        return f"{self.getCodigo()}- {self.getNombre()}"

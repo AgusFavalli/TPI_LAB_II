@@ -2,8 +2,8 @@ class VistaGeneral:
     def bienvenida(self):
         print("-----BIENVENIDOS-----"
               "\n1 - Listado mascotas activas"
-              "\n2 - ___"
-              "\n3 - ___"
+              "\n2 - Listado de razas"
+              "\n3 - Listado de vacunas"
               "\n4 - ___"
               )
 

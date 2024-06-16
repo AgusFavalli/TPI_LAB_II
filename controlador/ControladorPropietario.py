@@ -11,10 +11,9 @@ class ControladorPropietario:
             for linea in archivo.readlines():
                 nombre, direccion, telefono, codigo, numMascota= linea.strip().split(",")
                 self.listaPropietarios.append(Propietario(nombre, direccion, telefono, codigo, numMascota))
-        print(self.listaPropietarios)
 
 
     def buscarObjeto(self,propietario):
         for i in self.listaPropietarios:
             if i.getCodigo() == propietario:
-                return
+                return i

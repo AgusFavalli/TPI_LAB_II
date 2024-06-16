@@ -17,3 +17,6 @@ class ControladorRaza:
         for i in self.listaRazas:
             if i.getCodigo() == raza:
                 return i
+
+    def listadoRazas(self):
+        self.vista.mostrarLista(self.listaRazas)
