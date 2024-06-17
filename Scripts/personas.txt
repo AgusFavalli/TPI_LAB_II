@@ -1,8 +1,0 @@
-Juan Pérez;Calle 123;12345678;01
-Maria Rodriguez;Avenida 456;98765432;02
-Pedro García;Calle 789;55555555;03
-Ana López;Calle 901;33333333;04
-Luis Torres;Avenida 101;66666666;05
-Isabel Hernández;Calle 111;77777777;06
-Carlos Martínez;Calle 1313;44444444;07
-Sofía Gómez;Avenida 1616;22222222;08

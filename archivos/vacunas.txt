@@ -1,0 +1,7 @@
+1, Rabia, Vacuna contra la rabia
+2, Parvovirus, Vacuna contra el parvovirus
+3, Moquillo, Vacuna contra el moquillo
+4, Hepatitis, Vacuna contra la hepatitis infecciosa
+5, Leptospirosis, Vacuna contra la leptospirosis
+6, Coronavirus, Vacuna contra el coronavirus
+7, Influenza, Vacuna contra la influenza

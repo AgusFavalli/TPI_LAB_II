@@ -1,0 +1,5 @@
+1, Fractura,2,3
+2, Infección,5,7
+3, Deshidratación, ,8
+4, Parasitismo,1,4
+5, Enfermedad crónica,5,3

@@ -1,12 +1,8 @@
-#Se importa el controlador
-from Controllers.ControllerGeneral import ControllerGeneral
+from controlador.ControladorGeneral import ControladorGeneral
 
-#En esta funcion definimos el controller y invocamos unicamente a su función main(). Desde allí se maneja todo el sistema.
-def main():
-    controller = ControllerGeneral()
-    controller.menu()
+def inicio():
+    controlador = ControladorGeneral()
+    controlador.menu()
 
-if __name__ == "__main__":
-    main()
-
-    
+if __name__ =="__main__":
+    inicio()
