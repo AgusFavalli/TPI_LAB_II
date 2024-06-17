@@ -1,5 +1,5 @@
 from controlador.ControladorMascotas import ControladorMascotas
-from controlador.ControladorPropietario import ControladorPropietario
+from controlador.ControladorPersona import ControladorPersona
 from controlador.ControladorRaza import ControladorRaza
 from controlador.ControladorVacuna import ControladorVacuna
 from controlador.ControladorDiagnostico import ControladorDiagnostico
@@ -9,15 +9,15 @@ from vista.VistaGeneral import VistaGeneral
 class ControladorGeneral:
     def __init__(self):
         self.vista= VistaGeneral()
-        self.controladorPropietarios= ControladorPropietario()
+        self.controladorPersonas= ControladorPersona()
         self.controladorRaza= ControladorRaza()
         self.controladorVacuna= ControladorVacuna()
         self.controladorTratamiento= ControladorTratamiento()
-        self.controladorMascotas = ControladorMascotas(self.controladorRaza, self.controladorPropietarios)
+        self.controladorMascotas = ControladorMascotas(self.controladorRaza, self.controladorPersonas)
         self.controladorDiagnostico= ControladorDiagnostico(self.controladorTratamiento, self.controladorVacuna)
 
     def cargarArchivos(self):       #carga los archivos txt a las listas de cada clase
-        self.controladorPropietarios.cargarArchivoPropietarios()
+        self.controladorPersonas.cargarArchivoPersonas()
         self.controladorRaza.cargarArchivoRazas()
         self.controladorVacuna.cargarArchivoVacunas()
         self.controladorTratamiento.cargarArchivoTratamientos()
@@ -42,6 +42,10 @@ class ControladorGeneral:
                 self.controladorTratamiento.listadoTratamientos()
             elif opcion == "5":
                 self.controladorDiagnostico.listadoDiagnosticos()
+            elif opcion == "6":
+                self.controladorPersonas.listadoPersonas()
+            elif opcion == "7":
+                self.controladorDiagnostico.eliminarDiagnostico()
             else:
                 self.vista.getMensaje("La opcion indicada no es valida")
             opcion= self.vista.menu()

@@ -1,10 +1,12 @@
 class Persona:
-    def __init__(self, nombre, direccion, telefono, codigo, numMascota):
+    def __init__(self,codigo, nombre, direccion, telefono):
+        self._codigo = codigo
         self._nombre = nombre
         self._direccion= direccion
         self._telefono = telefono
-        self._codigo=codigo
-        self._numMascota= numMascota
+
+    def getCodigo(self):
+        return self._codigo
 
     def getNombre(self):
         return self._nombre
@@ -15,12 +17,6 @@ class Persona:
     def getTelefono(self):
         return self._telefono
     
-    def getCodigo(self):
-        return self._codigo
-
-    def getNumMascota(self):
-        return self.getNumMascota
-    
     def setNombre(self, dato):
         self._nombre = dato
 
@@ -30,14 +26,26 @@ class Persona:
     def setCodigo(self, dato):
         self._codigo = dato
 
-
-
     def __str__(self):
-        return f"{self.getNombre()}, {self.getDireccion()}, {self.getTelefono()}, {self.getCodigo()}"
+        return f"{self.getCodigo()},{self.getNombre()}, {self.getDireccion()}, {self.getTelefono()}"
 
     def __repr__(self):
-        return f"{self.getNombre()}, {self.getDireccion()}, {self.getTelefono()}, {self.getCodigo()}"
+        return f"{self.getCodigo()},{self.getNombre()}, {self.getDireccion()}, {self.getTelefono()}"
 
+class Veterinario(Persona):
+    def __init__(self, codigo, nombre, direccion, telefono):
+        super().__init__(codigo, nombre, direccion, telefono)
 
+class Propietario(Persona):
+    def __init__(self, codigo, nombre, direccion, telefono, numMascota):
+        super().__init__(codigo, nombre, direccion, telefono)
+        self._numMascota = numMascota
 
+    def getMascota(self):
+        return self._numMascota
 
+    def __str__(self):
+        return super().__str__() + f", num mascota: {self.getMascota()}"
+
+    def __repr__(self):
+        return super().__str__()
