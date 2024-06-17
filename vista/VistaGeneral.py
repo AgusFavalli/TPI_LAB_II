@@ -1,10 +1,11 @@
 class VistaGeneral:
     def bienvenida(self):
         print("-----BIENVENIDOS-----"
-              "\n1 - Listado mascotas activas"
-              "\n2 - Listado de razas"
-              "\n3 - Listado de vacunas"
-              "\n4 - ___"
+              "\n1 - Menu gestion de razas"
+              "\n2 - Menu gestion de Personas"
+              "\n3 - Menu gestion de diagnosticos"
+              "\n4 - Menu gestion de tratamientos"
+              "\n5 - Menu gestion de vacunas"
               )
 
     def menu(self):
@@ -28,26 +29,18 @@ class VistaGeneral:
         print("6- Volver")
         return input("Seleccione una opción: ")
 
-    def seleccionarPersona(self):
-        return input("ingrese el codigo de la persona a eliminar")
+
 
     def obtenerTipoPersona(self):
         tipo = input("Ingrese el tipo de persona (Veterinario/Propietario): ")
         return tipo.capitalize()
 
-    def obtenerDatosPersona(self):
-        codigo = input("Ingrese el codigo: ")
-        nombre = input("Ingrese el nombre: ")
-        direccion = input("Ingrese la dirección: ")
-        telefono = input("Ingrese el teléfono: ")
-        return codigo, nombre, direccion, telefono
-
-    def pedirMascota(self):
-        return input("ingrese el numero de mascota")
 
 
-    def opcionPersona(self):
-        return input("desea agregar veterinario digite 1, si desea agregar propietario digite 2")
+
+
+
+
 
     def obtenerDiagnostico(self):
         print("ingrese la descripcion de un nuevo diagnostico, su tratamiento y una vacuna")
@@ -69,16 +62,13 @@ class VistaGeneral:
         return input("ingrese el codigo de la vacuna a eliminar")
 
 
-
-
-
     def obtenerTratamiento(self):
         print("ingrese el nombre y descripcion de un nuevo tratamiento")
         nombre = input("ingrese el nombre: ")
         descripcion = input("ingrese la descripcion: ")
         return nombre, descripcion
 
-    def eliminarTratamiento
+    def eliminarTratamiento(self):
         return input("ingrese el codigo del tratamiento a eliminar")
 
     def obtenerMascota(self):

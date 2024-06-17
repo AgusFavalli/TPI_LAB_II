@@ -30,11 +30,15 @@ class ControladorRaza:
         self.vista.mostrarMensaje("Raza agregada con éxito.")
 
     def modificarRaza(self):
-
-        nueva_raza= self.vista.modificarRaza()
-        raza_modificar= self.buscarObjeto(raza)
-        raza_modificar.setNombre(nueva_raza)
-        self.vista.mostrarMensaje("la raza fue modificada con exito")
+        self.listadoRazas()
+        raza_actual, nueva_raza= self.vista.modificarRaza()
+        raza_modificar= self.buscarObjeto(raza_actual)
+        if raza_modificar:
+            raza_modificar.setNombre(nueva_raza)
+            self.vista.mostrarMensaje("la raza fue modificada con exito")
+            with open('archivos/razas.txt', 'w', encoding="utf-8") as file:
+                for raza in self.listaRazas:
+                    file.write(f"{raza.getCodigo()},{raza.getNombre()}\n")
 
     def eliminarRaza(self):
         self.vista.mostrarLista(self.listaRazas)
@@ -59,15 +63,17 @@ class ControladorRaza:
     def ejecutarMenuRazas(self):
         opcion = self.vista.mostrarMenuPersona()
         while True:
-            if opcion == "1":  # 1- Dar de alta nuevas razas
-                self.agregarRaza()
-            elif opcion == "2":  # 2- modificar razas registradas
-                self.modificarRaza()
-            elif opcion == "3":  # 3- eliminar razas
-                self.eliminarRaza()
-            elif opcion == "4":  # 4- mostrar listado de razas
+            if opcion == "1":  # 1- mostrar listado de razas
                 self.listadoRazas()
+            elif opcion == "2":  # 2- agregar raza
+                self.agregarRaza()
+            elif opcion == "3":  # 3- modificar razas registradas
+                self.modificarRaza()
+            elif opcion == "4":  # 4- eliminar razas
+                self.eliminarRaza()
             elif opcion == "5":  # 5- salir
+                self.vista.mostrarMensaje("Volviendo al menu principal...")
                 break
             else:
                 print("Opción inválida. Por favor, intente nuevamente.\n")
+            opcion = self.vista.mostrarMenuPersona()

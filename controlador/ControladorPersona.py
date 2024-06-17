@@ -1,9 +1,9 @@
-from vista.VistaGeneral import VistaGeneral
+from vista.VistaPersona import VistaPersona
 from modelo.Persona import Propietario, Veterinario
 
 class ControladorPersona:
     def __init__(self):
-        self.vista= VistaGeneral()
+        self.vista= VistaPersona()
         self.listaPersonas=[]
         self.listaPropietarios=[]
         self.listaVeterinarios=[]
@@ -39,7 +39,18 @@ class ControladorPersona:
                 file.write(f"{propietario.getCodigo()},{propietario.getNombre()},{propietario.getDireccion()},{propietario.getTelefono()},{propietario.getMascota()}\n")
                 self.listaPropietarios.append(propietario)
                 self.listaPersonas.append(propietario)
-        self.vista.getMensaje("Persona agregada con éxito.")
+        self.vista.mostrarMensaje("Persona agregada con éxito.")
+
+    def modificarPersona(self):
+        self.listadoPersonas()
+        persona_actual, nueva_persona= self.vista.modificarPersona()
+        persona_modificar= self.buscarObjeto(persona_actual)
+        if persona_modificar:
+            persona_modificar.setNombre(nueva_persona)
+            self.vista.mostrarMensaje("la persona fue modificada con exito")
+            with open('archivos/personas.txt', 'w', encoding="utf-8") as file:
+                for persona in self.listaPersonas:
+                    file.write(f"{persona.getCodigo()},{persona.getNombre()}\n")
 
     def eliminarPersona(self):
         self.vista.mostrarLista(self.listaPersonas)
@@ -56,10 +67,15 @@ class ControladorPersona:
                             pass
                         else:
                             file.write(linea)
-                self.vista.getMensaje("persona eliminada")
+                self.vista.mostrarMensaje("persona eliminada")
                 break
         if not personaEncontrada:
-            self.vista.getMensaje("persona no encontrada")
+            self.vista.mostrarMensaje("persona no encontrada")
+
+    def buscarObjeto(self,persona):
+        for i in self.listaPersonas:
+            if i.getCodigo() == persona:
+                return i
 
     def buscarObjetoPropietario(self,propietario):
         for i in self.listaPropietarios:
@@ -72,7 +88,26 @@ class ControladorPersona:
                 return i
 
     def listadoPersonas(self):
-        self.vista.getMensaje("Listado veterinarios:")
+        self.vista.mostrarMensaje("Listado veterinarios:")
         self.vista.mostrarLista(self.listaVeterinarios)
-        self.vista.getMensaje("Listado Propietarios")
+        self.vista.mostrarMensaje("Listado Propietarios")
         self.vista.mostrarLista(self.listaPropietarios)
+
+    def ejecutarMenuPersonas(self):
+        opcion = self.vista.mostrarMenuPersona()
+        while True:
+            if opcion == "1":  # 1- Ver lista personas
+                self.vista.mostrarLista(self.listaPersonas)
+            elif opcion == "2":  # 2- ver lista veterinarios
+                self.vista.mostrarLista(self.listaVeterinarios)
+            elif opcion == "3":  # 3- ver lista propietarios
+                self.vista.mostrarLista(self.listaPropietarios)
+            elif opcion == "4":  # 4- agregar persona
+                self.agregarPersonas()
+            elif opcion == "5":  # 5- Modificar datos de una persona
+                self.modificarPersona()
+            elif opcion == "6":  # 6- Volver
+                print("Volviendo")
+                break
+            else:
+                print("Opción inválida. Por favor, intente nuevamente.\n")

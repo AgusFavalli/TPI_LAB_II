@@ -1,17 +1,17 @@
 class VistaRaza:
     def mostrarMenuPersona(self):
-        print("Menú de Gestión de Personas\n"
-            "1- Ver lista personas\n"
-            "2- Consultar persona\n"
-            "3- Agregar una persona\n"
-            "4- Eliminar una persona\n"
-            "5- Modificar datos de una persona\n"
-            "6- Volver\n")
+        print("Menú de Gestión de Razas\n"
+            "1- Ver lista razas\n"
+            "2- Agregar una nueva raza\n"
+            "3- Modificar raza registrada\n"
+            "4- Eliminar una raza\n"
+            "5- Volver\n")
         return input("Seleccione una opción: ")
 
     def modificarRaza(self):
-        vieja_raza= input("ingrese el nombre de la raza actual que desea modificar")
-        return input("ingrese el nombre modificado de la raza")
+        vieja_raza= input("ingrese el codigo de la raza actual que desea modificar")
+        nueva_raza= input("ingrese el nombre del nombre modificado de la raza")
+        return vieja_raza, nueva_raza
 
     def mostrarMensaje(self, dato):
         print (dato)

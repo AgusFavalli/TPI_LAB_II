@@ -32,8 +32,8 @@ class ControladorGeneral:
         while opcion != "0":
             if opcion == "1":  #gestion de razas
                 self.controladorRaza.ejecutarMenuRazas()
-            elif opcion == "2": #gestion de personas
-                self.controladorPersonas.ejecutarMenuPersonas()
+            #elif opcion == "2": #gestion de personas
+            #    self.controladorPersonas.ejecutarMenuPersonas()
             elif opcion == "3": #gestion de diagnosticos
                 self.controladorDiagnostico.ejecutarMenuDiagnosticos()
             elif opcion == "4": #gestion de tratamiento

@@ -26,6 +26,7 @@ class Persona:
     def setCodigo(self, dato):
         self._codigo = dato
 
+
     def __str__(self):
         return f"{self.getCodigo()},{self.getNombre()}, {self.getDireccion()}, {self.getTelefono()}"
 

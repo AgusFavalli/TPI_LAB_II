@@ -59,3 +59,21 @@ class ControladorDiagnostico:
                 break
         if not diagnosticoEncontrado:
             self.vista.getMensaje("diagnostico no encontrado")
+
+    def ejecutarMenuDiagnosticos(self):
+        opcion = self.vista.mostrarMenuDiagnosticos()
+        while True:
+            if opcion == "1":  # 1- mostrar listado de razas
+                self.listadoRazas()
+            elif opcion == "2":  # 2- agregar raza
+                self.agregarRaza()
+            elif opcion == "3":  # 3- modificar razas registradas
+                self.modificarRaza()
+            elif opcion == "4":  # 4- eliminar razas
+                self.eliminarRaza()
+            elif opcion == "5":  # 5- salir
+                self.vista.mostrarMensaje("Volviendo al menu principal...")
+                break
+            else:
+                print("Opción inválida. Por favor, intente nuevamente.\n")
+            opcion = self.vista.mostrarMenuPersona()
