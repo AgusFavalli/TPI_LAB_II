@@ -68,11 +68,9 @@ class VistaGeneral:
     def eliminarVacuna(self):
         return input("ingrese el codigo de la vacuna a eliminar")
 
-    def obtenerRaza(self):
-        return input("ingrese el nombre de la raza")
 
-    def eliminarRaza(self):
-        return input("ingrese el codigo de la raza a eliminar")
+
+
 
     def obtenerTratamiento(self):
         print("ingrese el nombre y descripcion de un nuevo tratamiento")

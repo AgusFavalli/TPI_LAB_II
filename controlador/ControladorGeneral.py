@@ -30,18 +30,16 @@ class ControladorGeneral:
         self.vista.bienvenida()
         opcion= self.vista.menu()
         while opcion != "0":
-            if opcion == "1":  #muestra la lista mascotas activas
-                self.controladorMascotas.listadoMascotasActivas()
-            elif opcion == "2": #muestra la lista de razas
-                self.controladorRaza.listadoRazas()
-            elif opcion == "3": #muestra la lista de vacunas
-                self.vista.getMensaje("--- Vacuna / Descripcion ---")
-                self.controladorVacuna.listadoVacunas()
-            elif opcion == "4": #muestra la lista de tratamientos
-                self.vista.getMensaje("--- Tratamiento / Descripcion ---")
-                self.controladorTratamiento.listadoTratamientos()
-            elif opcion == "5":
-                self.controladorDiagnostico.listadoDiagnosticos()
+            if opcion == "1":  #gestion de razas
+                self.controladorRaza.ejecutarMenuRazas()
+            elif opcion == "2": #gestion de personas
+                self.controladorPersonas.ejecutarMenuPersonas()
+            elif opcion == "3": #gestion de diagnosticos
+                self.controladorDiagnostico.ejecutarMenuDiagnosticos()
+            elif opcion == "4": #gestion de tratamiento
+                self.controladorTratamiento.ejecutarMenuTratamientos()
+            elif opcion == "5": #gestion de vacunas
+                self.controladorVacuna.ejecutarMenuVacunas()
             elif opcion == "6":
                 self.controladorPersonas.listadoPersonas()
             elif opcion == "7":
