@@ -6,10 +6,10 @@ from controlador.ControladorRaza import ControladorRaza
 from controlador.ControladorVacuna import ControladorVacuna
 from controlador.ControladorDiagnostico import ControladorDiagnostico
 from controlador.ControladorTratamiento import ControladorTratamiento
-
+import os
 
 class ControladorFichaMedica:
-    def __init__(self,controladorRaza, controladorPersonas):
+    def __init__(self):
         self.vista= VistaFichaMedica()
         self.controladorPersonas= ControladorPersona()
         self.controladorRaza= ControladorRaza()
