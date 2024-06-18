@@ -94,7 +94,7 @@ class ControladorFichaMedica:
     
     def ejecutarMenuFichaMedica(self):
          while True:   
-            opcion = self.vista.mostrarMenu()
+            opcion = self.vista.mostrarMenuFinchaMedica()
             if opcion == '1':
                 self.consultarFichaMedica()
             elif opcion == '2':
