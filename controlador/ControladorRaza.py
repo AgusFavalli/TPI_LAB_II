@@ -23,7 +23,7 @@ class ControladorRaza:
 
     def agregarRaza(self):
         codigo = len(self.listaRazas) + 1
-        nombre= self.vista.obtenerRaza()
+        nombre = self.vista.obtenerRaza()
         with open('archivos/razas.txt', 'a', encoding="utf-8") as file:
             file.write(f"{codigo},{nombre}\n")
             self.listaRazas.append(f"{codigo},{nombre}\n")

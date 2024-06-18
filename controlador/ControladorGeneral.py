@@ -47,3 +47,5 @@ class ControladorGeneral:
             else:
                 self.vista.getMensaje("La opcion indicada no es valida")
             opcion= self.vista.menu()
+
+    
