@@ -1,3 +1,6 @@
+import os
+
+
 class FichaMedica:
     def __init__(self, fecha, tratamiento, veterinario, diagnosticos, vacunas):
         self.fecha = fecha

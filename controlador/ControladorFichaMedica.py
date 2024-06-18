@@ -18,6 +18,7 @@ class ControladorFichaMedica:
         self.controladorMascotas = ControladorMascotas(self.controladorRaza, self.controladorPersonas)
         self.controladorDiagnostico= ControladorDiagnostico(self.controladorTratamiento, self.controladorVacuna)
         self.listaFichasMedicas = []
+        self.rutaArchivosFichasMedicas = "./archivosFichasMedicas" #carpeta donde se desea almacenar las fichas individuales
 
    # metodo para consultar una ficha medica en particular
     def consultarFichaMedica(self):
@@ -39,15 +40,21 @@ class ControladorFichaMedica:
          else:
                self.vista.mostrarMensaje("No se encontró la ficha médica para modificar.")
 
+
+#crea la ficha medica, en una carpeta en especifico
     def crearFichaMedica(self):
+         #nombreMascota = self.vista.solicitarNombreMascota()
+         if not os.path.exists(self.rutaArchivosFichasMedicas):
+            os.makedirs(self.rutaArchivosFichasMedicas)
          nombreMascota = self.vista.solicitarNombreMascota()
-         if not os.path.exists(f"{nombreMascota}.txt"):
-               datosFicha = self.vista.solicitarDatosFichaMedica()
-               self.guardarFichaMedica(nombreMascota, datosFicha)
-               self.vista.mostrarMensaje("Ficha médica creada con éxito.")
+         rutaArchivo = os.path.join(self.rutaArchivosFichasMedicas, f"{nombreMascota}.txt")
+         if not os.path.exists(rutaArchivo):
+            datosFicha = self.vista.solicitarDatosFichaMedica()
+            self.guardarFichaMedica(rutaArchivo, datosFicha)
+            self.vista.mostrarMensaje("Ficha médica creada con éxito.")
          else:
-               self.vista.mostrarMensaje("Ya existe una ficha médica para esta mascota.")
-      
+            self.vista.mostrarMensaje("Ya existe una ficha médica para esta mascota.")
+
     def cargarFichaMedica(self, nombremascota):
         try:
             with open(f"{nombremascota}.txt", "r") as file:
@@ -63,12 +70,11 @@ class ControladorFichaMedica:
             return None
 
     def guardarFichaMedica(self, nombreMascota, datos):
-        with open(f"{nombreMascota}.txt", "w") as file:
-            file.write(f"{datos['fecha']}\n")
-            file.write(f"{datos['tratamiento']}\n")
-            file.write(f"{datos['veterinario']}\n")
-            file.write(f"{datos['diagnosticos']}\n")
-            file.write(f"{datos['vacunas']}\n")
+      with open(f"{nombreMascota}.txt", "a+") as file:
+         # Formatear los datos en una sola línea, separados por ";"
+         linea = f"{datos['fecha']},{datos['tratamiento']},{datos['veterinario']},{datos['diagnosticos']},{datos['vacunas']}\n"
+         # Escribir la línea en el archivo
+         file.write(linea)
 
 
  #metodos para obtener informacion desde los archivos   
@@ -87,13 +93,15 @@ class ControladorFichaMedica:
          tratamientos = file.readlines()
       return [tratamiento.strip() for tratamiento in tratamientos]    
 
+ #.-.-.-.-.-.-..-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
     def obtenerVacunas(self):
       with open("archivos/vacunas.txt", "r") as file:
          vacunas = file.readlines()
       return [vacuna.strip() for vacuna in vacunas] 
     
     def ejecutarMenuFichaMedica(self):
-         while True:   
+         while True:
+            self.vista.limpiarPantalla()   
             opcion = self.vista.mostrarMenuFinchaMedica()
             if opcion == '1':
                 self.consultarFichaMedica()
