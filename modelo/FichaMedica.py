@@ -1,31 +1,39 @@
 class FichaMedica:
-    def __init__(self,codigo, mascota, veterinario, fecha):
-        self._codigo=codigo
-        self._mascota= mascota
-        self._veterinario= veterinario
-        self._diagnosticos= []
-        self._tratamientos =[]
-        self.vacunas = []
-        self._fecha= fecha
+    def __init__(self, fecha, tratamiento, veterinario, diagnosticos, vacunas):
+        self.fecha = fecha
+        self.tratamiento = tratamiento
+        self.veterinario = veterinario
+        self.diagnosticos = diagnosticos
+        self.vacunas = vacunas
 
-    def getCodigo(self):
-        return self._codigo
 
-    def getMascota(self):
-        return self._mascota
+
+    def getTratamientos(self):
+        return self.tratamiento
 
     def getVeterinario(self):
-        return self._veterinario
+        return self.veterinario
 
     def getDiagnosticos(self):
-        return self._diagnosticos
+        return self.diagnosticos
+
+    def getvacunas(self):
+        return self.vacunas
 
     def getFecha(self):
-        return self._fecha
+        return self.fecha
 
+    def toDict(self):
+        return {
+            'fecha': self.fecha,
+            'tratamiento': self.tratamiento,
+            'veterinario': self.veterinario,
+            'diagnosticos': self.diagnosticos,
+            'vacunas': self.vacunas
+        }
 
     def __str__(self):
-        return f"{self.getMascota()}, {self.getVeterinario()}, {self.getDiagnosticos()}, {self.getFecha()}"
+        return f"{self.getTratamientos()}, {self.getVeterinario()}, {self.getDiagnosticos()}, {self.getvacunas()}, {self.getFecha()}"
 
     def __repr__(self):
-        return f"{self.getMascota()}, {self.getVeterinario()}, {self.getDiagnosticos()}, {self.getFecha()}"
+        return f"{self.getTratamientos()}, {self.getVeterinario()}, {self.getDiagnosticos()}, {self.getvacunas()}, {self.getFecha()}"

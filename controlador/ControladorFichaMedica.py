@@ -21,19 +21,55 @@ class ControladorFichaMedica:
 
    # metodo para consultar una ficha medica en particular
     def consultarFichaMedica(self):
-        nombreMascota = self.vista.obtenerNombreMascota()
-        ficha = self.consultar_ficha_medica(nombreMascota)
-        self.vista.mostrarSolicitudFicha(nombreMascota, ficha)
-
-   # metodo para modificar una ficha medica en particular
+        nombreMascota = self.vista.solicitarNombreMascota()
+        fichaMedica = self.cargarFichaMedica(nombreMascota)
+        self.vista.mostrarFichaMedica(fichaMedica)
+                                      
+      # metodo para modificar una ficha medica en particular
+    
+    
+    
     def modificarFichaMedica(self):
-        nombreMascota = self.vista.obtenerNombreMascota()
-        fecha = self.vista.ingresarFecha()
-        tratamiento, veterinario, diagnostico, vacunas = self.vista.ingresarInformacion()
-        return nombreMascota, fecha, tratamiento, veterinario, diagnostico, vacunas
+         nombreMascota = self.vista.solicitarNombreMascota()
+         fichaMedica = self.cargarFichaMedica(nombreMascota)
+         if fichaMedica:
+               nuevosDatos = self.vista.solicitarDatosFichaMedica()
+               self.guardarFichaMedica(nombreMascota, nuevosDatos)
+               self.vista.mostrarMensaje("Ficha médica actualizada con éxito.")
+         else:
+               self.vista.mostrarMensaje("No se encontró la ficha médica para modificar.")
+
+    def crearFichaMedica(self):
+         nombreMascota = self.vista.solicitarNombreMascota()
+         if not os.path.exists(f"{nombreMascota}.txt"):
+               datosFicha = self.vista.solicitarDatosFichaMedica()
+               self.guardarFichaMedica(nombreMascota, datosFicha)
+               self.vista.mostrarMensaje("Ficha médica creada con éxito.")
+         else:
+               self.vista.mostrarMensaje("Ya existe una ficha médica para esta mascota.")
       
-        #self.modificarFichaMedica(nombreMascota, fecha, tratamiento, veterinario, diagnostico, vacunas) 
-        #self.vista.mensajeModificacion(nombreMascota)
+    def cargarFichaMedica(self, nombremascota):
+        try:
+            with open(f"{nombremascota}.txt", "r") as file:
+                datos = file.readlines()
+                return {
+                    'fecha': datos[0].strip(),
+                    'tratamiento': datos[1].strip(),
+                    'veterinario': datos[2].strip(),
+                    'diagnosticos': datos[3].strip(),
+                    'vacunas': datos[4].strip()
+                }
+        except FileNotFoundError:
+            return None
+
+    def guardarFichaMedica(self, nombreMascota, datos):
+        with open(f"{nombreMascota}.txt", "w") as file:
+            file.write(f"{datos['fecha']}\n")
+            file.write(f"{datos['tratamiento']}\n")
+            file.write(f"{datos['veterinario']}\n")
+            file.write(f"{datos['diagnosticos']}\n")
+            file.write(f"{datos['vacunas']}\n")
+
 
  #metodos para obtener informacion desde los archivos   
     def obtenerTratamientos(self):
@@ -56,41 +92,16 @@ class ControladorFichaMedica:
          vacunas = file.readlines()
       return [vacuna.strip() for vacuna in vacunas] 
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     def ejecutarMenuFichaMedica(self):
-        opcion = self.vista.mostrarMenuFinchaMedica()
-        while True:
-            if opcion == "1":  # 1- Consultar una ficha medica
-                pass
-            elif opcion == "2":  # 2- Modificar una Ficha Medica
-                pass
-            elif opcion == "3":  # 5- salir
-                self.vista.mostrarMensaje("Volviendo al menu principal...")
+         while True:   
+            opcion = self.vista.mostrarMenu()
+            if opcion == '1':
+                self.consultarFichaMedica()
+            elif opcion == '2':
+                self.modificarFichaMedica()
+            elif opcion == '3':
+                self.crearFichaMedica()
+            elif opcion == '4':
                 break
             else:
-                print("Opción inválida. Por favor, intente nuevamente.\n")
+                self.vista.mostrarMensaje("Opción no válida, por favor seleccione de nuevo.")
