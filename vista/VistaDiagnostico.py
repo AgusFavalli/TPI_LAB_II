@@ -29,3 +29,4 @@ class VistaDiagnostico:
         viejo_diagnostico= input("ingrese el codigo del diagnostico actual que desea modificar")
         nuevo_diagnostico= input("ingrese el nombre del nombre modificado del diagnostico")
         return viejo_diagnostico, nuevo_diagnostico
+    
