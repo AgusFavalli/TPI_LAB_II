@@ -37,7 +37,7 @@ class VistaFichaMedica:
     def obtenerFichaMedica(self):
         return input("ingrese el nombre de la ficha medica")
 
-    def obtenerNombreMascota(self):
+    def solicitarNombreMascota(self):
         return input("ingrese el nombre de la mascota")
     
     def mostrarSolicitudFicha(self, nombreMascota, ficha):
