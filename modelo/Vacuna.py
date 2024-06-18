@@ -14,7 +14,7 @@ class Vacuna:
         return self._descripcion
 
     def __str__(self):
-        return f"{self.getCodigo()}- {self.getNombre()}, {self.getDescripcion()}"
+        return f"{self.getCodigo()}, {self.getNombre()}, {self.getDescripcion()}"
 
     def __repr__(self):
-        return f"{self.getCodigo()}- {self.getNombre()}, {self.getDescripcion()}"
+        return f"{self.getCodigo()}, {self.getNombre()}, {self.getDescripcion()}"

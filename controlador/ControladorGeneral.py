@@ -40,9 +40,9 @@ class ControladorGeneral:
                 self.controladorTratamiento.ejecutarMenuTratamientos()
             elif opcion == "5": #gestion de vacunas
                 self.controladorVacuna.ejecutarMenuVacunas()
-            elif opcion == "6":
-                self.controladorPersonas.listadoPersonas()
-            elif opcion == "7":
+            elif opcion == "6": #gestion de mascotas
+                self.controladorMascotas.ejecutarMenuMascotas()
+            elif opcion == "7": #gestion de ficha medica
                 self.controladorDiagnostico.eliminarDiagnostico()
             else:
                 self.vista.getMensaje("La opcion indicada no es valida")
