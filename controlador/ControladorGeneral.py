@@ -16,7 +16,7 @@ class ControladorGeneral:
         self.controladorTratamiento= ControladorTratamiento()
         self.controladorMascotas = ControladorMascotas(self.controladorRaza, self.controladorPersonas)
         self.controladorDiagnostico= ControladorDiagnostico(self.controladorTratamiento, self.controladorVacuna)
-        self.controladorFichaMedica = ControladorFichaMedica(self.controladorRaza, self.controladorPersonas)
+        self.controladorFichaMedica = ControladorFichaMedica()
 
     def cargarArchivos(self):       #carga los archivos txt a las listas de cada clase
         self.controladorPersonas.cargarArchivoPersonas()
