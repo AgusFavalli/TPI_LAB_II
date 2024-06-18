@@ -1,3 +1,5 @@
+import os
+
 class VistaGeneral:
     def bienvenida(self):
         print("-----BIENVENIDOS-----"
@@ -6,10 +8,12 @@ class VistaGeneral:
               "\n3 - Menu gestion de diagnosticos"
               "\n4 - Menu gestion de tratamientos"
               "\n5 - Menu gestion de vacunas"
+              "\n- - -"
+              "\n8 - Menu de fichas médicas"                            
               )
 
     def menu(self):
-        return input("Ingrese una opcion")
+        return input("Ingrese una opcion: ")
 
     def getMensaje(self, dato):
         print (dato)
@@ -81,3 +85,14 @@ class VistaGeneral:
 
     def eliminarMascota(self):
         return input("ingrese el codigo de la mascota a eliminar")
+
+#funciones Extras
+#Dependiendo del SO, cls limpia la pantalla en windows
+    def limpiarPantalla(self):
+      os.system("cls" if os.name == "nt" else "clear")  
+
+#La funcion getch() del modulo msvcrt espera el ingreso de una tecla sin retornarla. En linux se configura la terminal en modo RAW y leer un caracter con la funcion sys.stdin.read(1)
+def waitKey():
+    if os.name == "nt": #Para Windows
+        import msvcrt
+        msvcrt.getch()

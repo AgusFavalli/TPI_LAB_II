@@ -4,6 +4,8 @@ class FichaMedica:
         self._mascota= mascota
         self._veterinario= veterinario
         self._diagnosticos= []
+        self._tratamientos =[]
+        self.vacunas = []
         self._fecha= fecha
 
     def getCodigo(self):

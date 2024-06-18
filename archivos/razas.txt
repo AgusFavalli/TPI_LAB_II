@@ -1,4 +1,4 @@
-1,dogo
+1,Dogo
 2,caniche
 3,cocker
 4,coso

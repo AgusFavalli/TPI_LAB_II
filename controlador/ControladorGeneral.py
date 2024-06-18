@@ -4,6 +4,7 @@ from controlador.ControladorRaza import ControladorRaza
 from controlador.ControladorVacuna import ControladorVacuna
 from controlador.ControladorDiagnostico import ControladorDiagnostico
 from controlador.ControladorTratamiento import ControladorTratamiento
+from controlador.ControladorFichaMedica import ControladorFichaMedica
 from vista.VistaGeneral import VistaGeneral
 
 class ControladorGeneral:
@@ -15,6 +16,7 @@ class ControladorGeneral:
         self.controladorTratamiento= ControladorTratamiento()
         self.controladorMascotas = ControladorMascotas(self.controladorRaza, self.controladorPersonas)
         self.controladorDiagnostico= ControladorDiagnostico(self.controladorTratamiento, self.controladorVacuna)
+        self.controladorFichaMedica = ControladorFichaMedica(self.controladorRaza, self.controladorPersonas)
 
     def cargarArchivos(self):       #carga los archivos txt a las listas de cada clase
         self.controladorPersonas.cargarArchivoPersonas()
@@ -44,6 +46,8 @@ class ControladorGeneral:
                 self.controladorPersonas.listadoPersonas()
             elif opcion == "7":
                 self.controladorDiagnostico.eliminarDiagnostico()
+            elif opcion == "8":
+                self.controladorFichaMedica.ejecutarMenuFichaMedica()              
             else:
                 self.vista.getMensaje("La opcion indicada no es valida")
             opcion= self.vista.menu()
