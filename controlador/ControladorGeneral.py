@@ -32,17 +32,17 @@ class ControladorGeneral:
         while opcion != "0":
             if opcion == "1":  #gestion de razas
                 self.controladorRaza.ejecutarMenuRazas()
-            #elif opcion == "2": #gestion de personas
-            #    self.controladorPersonas.ejecutarMenuPersonas()
+            elif opcion == "2": #gestion de personas
+                self.controladorPersonas.ejecutarMenuPersonas()
             elif opcion == "3": #gestion de diagnosticos
                 self.controladorDiagnostico.ejecutarMenuDiagnosticos()
             elif opcion == "4": #gestion de tratamiento
                 self.controladorTratamiento.ejecutarMenuTratamientos()
             elif opcion == "5": #gestion de vacunas
                 self.controladorVacuna.ejecutarMenuVacunas()
-            elif opcion == "6":
-                self.controladorPersonas.listadoPersonas()
-            elif opcion == "7":
+            elif opcion == "6": #gestion de mascotas
+                self.controladorMascotas.ejecutarMenuMascotas()
+            elif opcion == "7": #gestion de ficha medica
                 self.controladorDiagnostico.eliminarDiagnostico()
             else:
                 self.vista.getMensaje("La opcion indicada no es valida")

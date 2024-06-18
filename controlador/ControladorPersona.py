@@ -111,3 +111,4 @@ class ControladorPersona:
                 break
             else:
                 print("Opción inválida. Por favor, intente nuevamente.\n")
+            opcion = self.vista.mostrarMenuPersona()

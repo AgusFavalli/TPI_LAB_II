@@ -23,6 +23,9 @@ class Diagnostico:
     def getTratamientos(self):
         return self._tratamientos
 
+    def setDescripcion(self,dato):
+        self._descripcion = dato
+
     def __str__(self):
         return f"{self.getCodigo()}- {self.getDescripcion()}, {self.getTratamientos()}, {self.getVacunas()}"
 

@@ -14,6 +14,9 @@ class Tratamiento:
     def getDescripcion(self):
         return self._descripcion
 
+    def setNombre(self,dato):
+        self._nombre = dato
+
     def getDatosTratamiento(self):
         return self.getNombre(), self.getDescripcion()
 

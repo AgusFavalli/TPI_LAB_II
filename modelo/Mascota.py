@@ -21,6 +21,9 @@ class Mascota:
     def getPropietario(self):
         return self._propietario
 
+    def setNombre(self,dato):
+        self._nombre = dato
+
     def isActivas(self):
         return self._codigo == "1"
 
