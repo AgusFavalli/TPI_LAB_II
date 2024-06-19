@@ -4,18 +4,24 @@ import os
 class VistaFichaMedica:
 
     def mostrarMenuFinchaMedica(self):
-        print("Menú de Gestión de Razas\n"
+        print("Menú de Gestión de Fichas Medicas\n"
             "1- Consultar una ficha medica\n"
-            "2- Modificar una Ficha Medica\n"
+            "2- Modificar una Ficha medica\n"
             "3- Crear una ficha médica \n"            
             "5- Volver\n")
         return input("Seleccione una opción: ")
    
+    def pedir(self, mensaje):
+        return input (mensaje)
+        
 
     def modificarFichaMedica(self):
         vieja_fichaMedica= input("ingrese el codigo de la raza actual que desea modificar")
         nueva_fichaMedica= input("ingrese el nombre del nombre modificado de la raza")
         return vieja_fichaMedica, nueva_fichaMedica
+
+    def mostrarMensajeVariable(self, mensaje, variable):
+      print(f"{mensaje} {variable}")
 
 
     def mostrarMensaje(self, dato):
@@ -38,10 +44,10 @@ class VistaFichaMedica:
 
 
     def obtenerFichaMedica(self):
-        return input("ingrese el nombre de la ficha medica")
+        return input("ingrese el nombre de la ficha medica: ")
 
     def solicitarNombreMascota(self):
-        return input("ingrese el nombre de la mascota")
+        return input("ingrese el nombre de la mascota: \n")
     
     def mostrarSolicitudFicha(self, nombreMascota, ficha):
         if ficha:

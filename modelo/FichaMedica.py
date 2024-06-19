@@ -26,6 +26,7 @@ class FichaMedica:
     def getFecha(self):
         return self.fecha
 
+#funcion que crea un diccionario, asignado a cada key un valor de la instant
     def toDict(self):
         return {
             'fecha': self.fecha,
