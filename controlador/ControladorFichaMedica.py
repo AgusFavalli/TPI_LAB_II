@@ -24,54 +24,45 @@ class ControladorFichaMedica:
 
 
                                       
-      # metodo para modificar una ficha medica en particular
     def modificarFichaMedica(self):
-         nombreMascota = self.vista.solicitarNombreMascota()
-         fichaMedica = self.cargarFichaMedica(nombreMascota)
-         if fichaMedica:
-               nuevosDatos = self.vista.solicitarDatosFichaMedica()
-               self.guardarFichaMedica(nombreMascota, nuevosDatos)
-               self.vista.mostrarMensaje("Ficha médica actualizada con éxito.")
-         else:
-               self.vista.mostrarMensaje("No se encontró la ficha médica para modificar.")
+        nombreMascota = self.vista.solicitarNombreMascota()
+        fichaMedica = self.cargarFichaMedica(nombreMascota)
+        if fichaMedica:
+            nuevosDatos = self.vista.solicitarDatosFichaMedica()
+            self.guardarFichaMedica(nombreMascota, nuevosDatos)
+            self.vista.mostrarMensaje("Ficha médica actualizada con éxito.")
+        else:
+            self.vista.mostrarMensaje("No se encontró la ficha médica para modificar.")
 
-#.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
-    # guarda la ficha médica, en una carpeta en específico
-    def guardarFichaMedica(self, rutaArchivo, datos):
-        with open(rutaArchivo, "a+") as file:
-            # Formatear los datos en una sola línea, separados por ","
+    def guardarFichaMedica(self, nombreMascota, datos):
+        rutaArchivo = os.path.join(self.rutaArchivosFichasMedicas, f"{nombreMascota}.txt")
+        with open(rutaArchivo, "a+", encoding="utf-8") as file:
             linea = f"{datos['fecha']},{datos['tratamiento']},{datos['veterinario']},{datos['diagnosticos']},{datos['vacunas']}\n"
-            # Escribir la línea en el archivo
             file.write(linea)
-            self.vista.mostrarMensajeVariable("Datos guardados en", rutaArchivo)
+        self.vista.mostrarMensajeVariable("Datos guardados en", rutaArchivo)
 
-
-    # crea la ficha médica, en una carpeta en específico
     def crearFichaMedica(self):
-        self.vista.mostrarMensaje("Iniciando creación de ficha médica...")  
+        self.vista.mostrarMensaje("Iniciando creación de ficha médica...")
         if not os.path.exists(self.rutaArchivosFichasMedicas):
             os.makedirs(self.rutaArchivosFichasMedicas)
-            return self.vista.mostrarMensajeVariable("carpeta creada en ", self.rutaArchivosFichasMedicas)  
+            self.vista.mostrarMensajeVariable("Carpeta creada en", self.rutaArchivosFichasMedicas)
         nombreMascota = self.vista.solicitarNombreMascota()
         rutaArchivo = os.path.join(self.rutaArchivosFichasMedicas, f"{nombreMascota}.txt")
         if not os.path.exists(rutaArchivo):
             datosFicha = self.vista.solicitarDatosFichaMedica()
-            self.guardarFichaMedica(rutaArchivo, datosFicha)
-            return self.vista.mostrarMensaje("Ficha médica creada con éxito.")
+            self.guardarFichaMedica(nombreMascota, datosFicha)
+            self.vista.mostrarMensaje("Ficha médica creada con éxito.")
         else:
-            return self.vista.mostrarMensaje("Ya existe una ficha médica para esta mascota.")
-#.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
+            self.vista.mostrarMensaje("Ya existe una ficha médica para esta mascota.")
 
-    def cargarFichaMedica(self, nombremascota):
-         try:
-            with open(f"{nombremascota}.txt", "r") as file:
-                  for linea in file:
-                     self.vista.mostrarMensaje(linea.strip())
-         except FileNotFoundError:
-             return self.vista.mostrarMensaje("No se encontro el archivo")
+    def cargarFichaMedica(self, nombreMascota):
+        rutaArchivo = os.path.join(self.rutaArchivosFichasMedicas, f"{nombreMascota}.txt")
+        try:
+            with open(rutaArchivo, "r", encoding="utf-8") as file:
+                return file.read()
+        except FileNotFoundError:
+            return None
 
-#.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
-    # Imprime una lista de todos los archivos .txt en la carpeta de archivosFichaMedica
     def listarFichasMedicas(self):
         archivos = os.listdir(self.rutaArchivosFichasMedicas)
         fichas = [archivo for archivo in archivos if archivo.endswith('.txt')]
@@ -82,44 +73,25 @@ class ControladorFichaMedica:
         else:
             self.vista.mostrarMensaje("No hay fichas médicas disponibles.")
 
-    # Consulta una ficha médica por nombre de mascota
     def consultarFichaMedica(self):
-        nombreMascota = self.vista.solicitarNombreMascota
+        nombreMascota = self.vista.solicitarNombreMascota()
         rutaArchivo = os.path.join(self.rutaArchivosFichasMedicas, f"{nombreMascota}.txt")
         if os.path.exists(rutaArchivo):
             self.vista.mostrarMensajeVariable("Ficha médica de", nombreMascota)
-            return rutaArchivo
+            self.mostrarContenidoFicha(rutaArchivo)
         else:
-            return self.vista.mostrarMensajeVariable("No existe una ficha médica para la mascota llamada", nombreMascota)
-            
+            self.vista.mostrarMensajeVariable("No existe una ficha médica para la mascota llamada", nombreMascota)
 
-# Muestra el contenido de una ficha médica seleccionada
     def mostrarContenidoFicha(self, rutaArchivo):
         if rutaArchivo and os.path.exists(rutaArchivo):
             nombreMascota = os.path.basename(rutaArchivo).replace('.txt', '')
-            self.vista.mostrarMensajeVariable("Contenido de la ficha médica de ", nombreMascota)
+            self.vista.mostrarMensajeVariable("Contenido de la ficha médica de", nombreMascota)
             self.vista.mostrarMensaje("Fecha, Tratamiento, Veterinario, Diagnósticos, Vacunas")
             with open(rutaArchivo, "r", encoding="utf-8") as file:
                 self.vista.mostrarMensaje(file.read())
         else:
             self.vista.mostrarMensaje("No se puede mostrar el contenido, el archivo no existe.")
 
-
- # Instancia una nueva ficha médica con los datos proporcionados
-    def instanciarFichaMedica(self, fecha, tratamiento, veterinario, diagnosticos, vacunas):
-        return self.modelo.FichaMedica(fecha, tratamiento, veterinario, diagnosticos, vacunas)
-
-    # Agrega información nueva a una ficha médica existente
-    def agregarInformacionFichaMedica(self, rutaArchivo, datos):
-        if os.path.exists(rutaArchivo):
-            with open(rutaArchivo, "a+", encoding="utf-8") as file:
-                linea = f"{datos['fecha']},{datos['tratamiento']},{datos['veterinario']},{datos['diagnosticos']},{datos['vacunas']}\n"
-                file.write(linea)
-            self.vista.mostrarMensaje("Información agregada con éxito.")
-        else:
-            self.vista.mostrarMensaje("El archivo no existe. No se puede agregar información.")
-
-    # Selecciona y elimina una ficha médica moviéndola a otra carpeta
     def eliminarFichaMedica(self):
         self.listarFichasMedicas()
         nombreMascota = self.vista.pedir("Ingrese el nombre de la mascota cuya ficha desea eliminar: ")
@@ -133,22 +105,23 @@ class ControladorFichaMedica:
         else:
             self.vista.mostrarMensajeVariable("No existe una ficha médica para la mascota llamada", nombreMascota)
 
-    
     def ejecutarMenuFichaMedica(self):
-         while True:
-            opcion = self.vista.mostrarMenuFinchaMedica()
+        while True:
+            opcion = self.vista.mostrarMenuFichaMedica()
             if opcion == '1':
                 self.vista.limpiarPantalla()
                 self.listarFichasMedicas()
                 self.consultarFichaMedica()
             elif opcion == '2':
+                self.vista.limpiarPantalla()
                 self.modificarFichaMedica()
             elif opcion == '3':
                 self.vista.limpiarPantalla()
-
                 self.crearFichaMedica()
-                self.vista.limpiarPantalla()
             elif opcion == '4':
+                self.vista.limpiarPantalla()
+                self.eliminarFichaMedica()
+            elif opcion == '5':
                 break
             else:
                 self.vista.mostrarMensaje("Opción no válida, por favor seleccione de nuevo.")

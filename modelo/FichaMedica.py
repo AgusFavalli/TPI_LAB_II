@@ -1,6 +1,3 @@
-import os
-
-
 class FichaMedica:
     def __init__(self, fecha, tratamiento, veterinario, diagnosticos, vacunas):
         self.fecha = fecha
@@ -8,8 +5,6 @@ class FichaMedica:
         self.veterinario = veterinario
         self.diagnosticos = diagnosticos
         self.vacunas = vacunas
-
-
 
     def getTratamientos(self):
         return self.tratamiento
@@ -20,24 +15,17 @@ class FichaMedica:
     def getDiagnosticos(self):
         return self.diagnosticos
 
-    def getvacunas(self):
+    def getVacunas(self):
         return self.vacunas
 
     def getFecha(self):
         return self.fecha
 
-#funcion que crea un diccionario, asignado a cada key un valor de la instant
-    def toDict(self):
-        return {
-            'fecha': self.fecha,
-            'tratamiento': self.tratamiento,
-            'veterinario': self.veterinario,
-            'diagnosticos': self.diagnosticos,
-            'vacunas': self.vacunas
-        }
+
 
     def __str__(self):
-        return f"{self.getTratamientos()}, {self.getVeterinario()}, {self.getDiagnosticos()}, {self.getvacunas()}, {self.getFecha()}"
+        return f"{self.getFecha()}, {self.getTratamientos()}, {self.getVeterinario()}, {self.getDiagnosticos()}, {self.getVacunas()}"
 
     def __repr__(self):
-        return f"{self.getTratamientos()}, {self.getVeterinario()}, {self.getDiagnosticos()}, {self.getvacunas()}, {self.getFecha()}"
+        return f"{self.getFecha()}, {self.getTratamientos()}, {self.getVeterinario()}, {self.getDiagnosticos()}, {self.getVacunas()}"
+ 
