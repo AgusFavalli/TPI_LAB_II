@@ -9,6 +9,10 @@ from controlador.ControladorTratamiento import ControladorTratamiento
 import os
 import shutil #este modulo permite el manejo de archivos (copiar, mover, etc.)
 
+
+
+
+
 class ControladorFichaMedica:
     def __init__(self):
         self.vista= VistaFichaMedica()
@@ -23,17 +27,23 @@ class ControladorFichaMedica:
         self.rutaFichasEliminadas = "./archivosFichasMedicas/fichasMedicasEliminadas"  # Carpeta para las fichas eliminadas        
 
 
-                                      
+
     def modificarFichaMedica(self):
         nombreMascota = self.vista.solicitarNombreMascota()
         fichaMedica = self.cargarFichaMedica(nombreMascota)
         if fichaMedica:
             nuevosDatos = self.vista.solicitarDatosFichaMedica()
             self.guardarFichaMedica(nombreMascota, nuevosDatos)
-            self.vista.mostrarMensaje("Ficha médica actualizada con éxito.")
+            self.vista.mostrarMensaje("Ficha médica actualizada con éxito.\n")
         else:
-            self.vista.mostrarMensaje("No se encontró la ficha médica para modificar.")
+            self.vista.mostrarMensaje("No se encontró la ficha médica para modificar.\n")
 
+
+
+
+
+# .-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
+        # Guarda una ficha médica en un archivo
     def guardarFichaMedica(self, nombreMascota, datos):
         rutaArchivo = os.path.join(self.rutaArchivosFichasMedicas, f"{nombreMascota}.txt")
         with open(rutaArchivo, "a+", encoding="utf-8") as file:
@@ -41,6 +51,7 @@ class ControladorFichaMedica:
             file.write(linea)
         self.vista.mostrarMensajeVariable("Datos guardados en", rutaArchivo)
 
+        # Crea una nueva ficha médica
     def crearFichaMedica(self):
         self.vista.mostrarMensaje("Iniciando creación de ficha médica...")
         if not os.path.exists(self.rutaArchivosFichasMedicas):
@@ -51,10 +62,12 @@ class ControladorFichaMedica:
         if not os.path.exists(rutaArchivo):
             datosFicha = self.vista.solicitarDatosFichaMedica()
             self.guardarFichaMedica(nombreMascota, datosFicha)
-            self.vista.mostrarMensaje("Ficha médica creada con éxito.")
+            self.vista.mostrarMensaje("Ficha médica creada con éxito.\n")
         else:
-            self.vista.mostrarMensaje("Ya existe una ficha médica para esta mascota.")
+            self.vista.mostrarMensaje("Ya existe una ficha médica para esta mascota.\n")
 
+
+# .-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
     def cargarFichaMedica(self, nombreMascota):
         rutaArchivo = os.path.join(self.rutaArchivosFichasMedicas, f"{nombreMascota}.txt")
         try:
@@ -62,7 +75,10 @@ class ControladorFichaMedica:
                 return file.read()
         except FileNotFoundError:
             return None
+        
 
+# .-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.        
+        # Lista todas las fichas médicas
     def listarFichasMedicas(self):
         archivos = os.listdir(self.rutaArchivosFichasMedicas)
         fichas = [archivo for archivo in archivos if archivo.endswith('.txt')]
@@ -73,11 +89,12 @@ class ControladorFichaMedica:
         else:
             self.vista.mostrarMensaje("No hay fichas médicas disponibles.")
 
+# .-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
     def consultarFichaMedica(self):
         nombreMascota = self.vista.solicitarNombreMascota()
         rutaArchivo = os.path.join(self.rutaArchivosFichasMedicas, f"{nombreMascota}.txt")
         if os.path.exists(rutaArchivo):
-            self.vista.mostrarMensajeVariable("Ficha médica de", nombreMascota)
+            self.vista.mostrarMensajeVariable("Ficha médica de\n", nombreMascota)
             self.mostrarContenidoFicha(rutaArchivo)
         else:
             self.vista.mostrarMensajeVariable("No existe una ficha médica para la mascota llamada", nombreMascota)
@@ -108,16 +125,19 @@ class ControladorFichaMedica:
     def ejecutarMenuFichaMedica(self):
         while True:
             opcion = self.vista.mostrarMenuFichaMedica()
-            if opcion == '1':
+            if opcion == '1': #opción para consultar una ficha médica
                 self.vista.limpiarPantalla()
                 self.listarFichasMedicas()
                 self.consultarFichaMedica()
+                self.vista.esperarTecla()
             elif opcion == '2':
                 self.vista.limpiarPantalla()
                 self.modificarFichaMedica()
-            elif opcion == '3':
+            elif opcion == '3': #opción crear una ficha médica 
                 self.vista.limpiarPantalla()
                 self.crearFichaMedica()
+                self.vista.esperarTecla()
+                self.vista.limpiarPantalla()
             elif opcion == '4':
                 self.vista.limpiarPantalla()
                 self.eliminarFichaMedica()

@@ -16,11 +16,11 @@ class VistaFichaMedica:
     def mostrarMensajeVariable(self, mensaje, variable):
         print(f"{mensaje} {variable}")
 
-    def mostrarMensaje(self, dato):
+    def mostrarMensaje(self, dato,):
         print(dato)
 
     def solicitarNombreMascota(self):
-        return input("Ingrese el nombre de la mascota: ")
+        return input("Ingrese el nombre de la mascota: \n").capitalize()
 
     def solicitarDatosFichaMedica(self):
         fecha = input("Ingrese la fecha: ")
@@ -42,7 +42,9 @@ class VistaFichaMedica:
        os.system("cls" if os.name == "nt" else "clear")  
 
 #La funcion getch() del modulo msvcrt espera el ingreso de una tecla sin retornarla. En linux se configura la terminal en modo RAW y leer un caracter con la funcion sys.stdin.read(1)
-    def waitKey():
-      if os.name == "nt": #Para Windows
-         import msvcrt
-         msvcrt.getch()
+    def esperarTecla(self):
+         """Espera a que el usuario presione una tecla para continuar."""
+         if os.name == 'nt':
+            import msvcrt
+            print("Presiona una tecla para continuar...")
+            msvcrt.getch()

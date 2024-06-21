@@ -1,8 +1,8 @@
-from controlador.ControladorFichaMedica import ControladorFichaMedica
+from controlador.ControladorGeneral import ControladorGeneral
 
 def main():
-    controlador = ControladorFichaMedica()
-    controlador.ejecutarMenuFichaMedica()
+    controlador = ControladorGeneral()    
+    controlador.menu()
 
 if __name__ == "__main__":
     main()
