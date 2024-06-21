@@ -6,8 +6,9 @@ class VistaFichaMedica:
               "1- Consultar una ficha médica\n"
               "2- Agregar información a una ficha médica\n"
               "3- Crear una ficha médica\n"
-              "4- Eliminar una ficha médica\n"
-              "5- Volver\n")
+              "4- Modificar información existente\n"
+              "5- Eliminar una ficha médica\n"              
+              "6- Volver\n")
         return input("Seleccione una opción: ")
 
     def pedir(self, mensaje):
@@ -21,13 +22,13 @@ class VistaFichaMedica:
 
     def solicitarNombreMascota(self):
         return input("Ingrese el nombre de la mascota: \n").capitalize()
-
+# solicita datos al usuario
     def solicitarDatosFichaMedica(self):
         fecha = input("Ingrese la fecha: ")
-        tratamiento = input("Ingrese el tratamiento: ")
-        veterinario = input("Ingrese el nombre del veterinario: ")
-        diagnosticos = input("Ingrese los diagnósticos: ")
-        vacunas = input("Ingrese las vacunas: ")
+        tratamiento = input("Ingrese el tratamiento: ").capitalize
+        veterinario = input("Ingrese el nombre del veterinario: ").capitalize
+        diagnosticos = input("Ingrese los diagnósticos: ").capitalize
+        vacunas = input("Ingrese las vacunas: ").capitalize
         return {
             'fecha': fecha,
             'tratamiento': tratamiento,

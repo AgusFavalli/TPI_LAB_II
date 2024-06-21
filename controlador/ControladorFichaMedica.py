@@ -26,14 +26,15 @@ class ControladorFichaMedica:
         self.rutaArchivosFichasMedicas = "./archivosFichasMedicas" #carpeta donde se desea almacenar las fichas individuales
         self.rutaFichasEliminadas = "./archivosFichasMedicas/fichasMedicasEliminadas"  # Carpeta para las fichas eliminadas        
 
-
-
-    def modificarFichaMedica(self):
+# .-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
+# Agrega información a ficha médica
+    def agregaInfoFichaMedica(self):
+        self.listarFichasMedicas()
         nombreMascota = self.vista.solicitarNombreMascota()
         fichaMedica = self.cargarFichaMedica(nombreMascota)
         if fichaMedica:
-            nuevosDatos = self.vista.solicitarDatosFichaMedica()
-            self.guardarFichaMedica(nombreMascota, nuevosDatos)
+            nuevosDatos = self.vista.solicitarDatosFichaMedica()# solicita datos al usuario
+            self.guardarFichaMedica(nombreMascota, nuevosDatos) # Guarda una ficha médica en un archivo
             self.vista.mostrarMensaje("Ficha médica actualizada con éxito.\n")
         else:
             self.vista.mostrarMensaje("No se encontró la ficha médica para modificar.\n")
@@ -57,6 +58,7 @@ class ControladorFichaMedica:
         if not os.path.exists(self.rutaArchivosFichasMedicas):
             os.makedirs(self.rutaArchivosFichasMedicas)
             self.vista.mostrarMensajeVariable("Carpeta creada en", self.rutaArchivosFichasMedicas)
+        self.listarFichasMedicas()
         nombreMascota = self.vista.solicitarNombreMascota()
         rutaArchivo = os.path.join(self.rutaArchivosFichasMedicas, f"{nombreMascota}.txt")
         if not os.path.exists(rutaArchivo):
@@ -91,6 +93,7 @@ class ControladorFichaMedica:
 
 # .-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
     def consultarFichaMedica(self):
+        self.listarFichasMedicas()
         nombreMascota = self.vista.solicitarNombreMascota()
         rutaArchivo = os.path.join(self.rutaArchivosFichasMedicas, f"{nombreMascota}.txt")
         if os.path.exists(rutaArchivo):
@@ -122,26 +125,40 @@ class ControladorFichaMedica:
         else:
             self.vista.mostrarMensajeVariable("No existe una ficha médica para la mascota llamada", nombreMascota)
 
+# .-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
+    def modificarFichaMedica(self):
+        # Modifica una ficha médica específica
+        self.listarFichasMedicas()
+        nombreMascota = self.vista.solicitarNombreMascota()
+        fichaMedica = self.cargarFichaMedica(nombreMascota)
+        if fichaMedica:
+            nuevosDatos = self.vista.solicitarDatosFichaMedica()
+            self.guardarFichaMedica(nombreMascota, nuevosDatos)
+            self.vista.mostrarMensaje("Ficha médica actualizada con éxito.")
+# .-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
+
     def ejecutarMenuFichaMedica(self):
         while True:
             opcion = self.vista.mostrarMenuFichaMedica()
             if opcion == '1': #opción para consultar una ficha médica
                 self.vista.limpiarPantalla()
-                self.listarFichasMedicas()
                 self.consultarFichaMedica()
                 self.vista.esperarTecla()
-            elif opcion == '2':
+            elif opcion == '2': #opción para agregar información a una ficha médica
                 self.vista.limpiarPantalla()
-                self.modificarFichaMedica()
+                self.agregaInfoFichaMedica()
             elif opcion == '3': #opción crear una ficha médica 
                 self.vista.limpiarPantalla()
                 self.crearFichaMedica()
                 self.vista.esperarTecla()
                 self.vista.limpiarPantalla()
-            elif opcion == '4':
+            elif opcion == '4': #Modificar información existente
                 self.vista.limpiarPantalla()
-                self.eliminarFichaMedica()
-            elif opcion == '5':
+                self.modificarFichaMedica()
+            elif opcion == '5': #Eliminar una ficha médica
+                self.vista.limpiarPantalla()
+                self.eliminarFichaMedica()               
+            elif opcion == '6':
                 break
             else:
                 self.vista.mostrarMensaje("Opción no válida, por favor seleccione de nuevo.")
