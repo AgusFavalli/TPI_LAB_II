@@ -25,10 +25,10 @@ class VistaFichaMedica:
 # solicita datos al usuario
     def solicitarDatosFichaMedica(self):
         fecha = input("Ingrese la fecha: ")
-        tratamiento = input("Ingrese el tratamiento: ").capitalize
-        veterinario = input("Ingrese el nombre del veterinario: ").capitalize
-        diagnosticos = input("Ingrese los diagnósticos: ").capitalize
-        vacunas = input("Ingrese las vacunas: ").capitalize
+        tratamiento = input("Ingrese el tratamiento: ")
+        veterinario = input("Ingrese el nombre del veterinario: ")
+        diagnosticos = input("Ingrese los diagnósticos: ")
+        vacunas = input("Ingrese las vacunas: ")
         return {
             'fecha': fecha,
             'tratamiento': tratamiento,
@@ -36,6 +36,11 @@ class VistaFichaMedica:
             'diagnosticos': diagnosticos,
             'vacunas': vacunas
         }
+    
+    def mostrarLista(self, lista):
+        # Muestra una lista de elementos
+        for index, item in enumerate(lista):
+            print(f"{index}: {item}")    
 
 #funciones Extras
 #Dependiendo del SO, cls limpia la pantalla en windows

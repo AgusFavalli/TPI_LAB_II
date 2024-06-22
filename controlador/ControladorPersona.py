@@ -23,7 +23,7 @@ class ControladorPersona:
                     self.listaPropietarios.append(propietario)
                     self.listaPersonas.append(propietario)
 
-    # función que permite guardar los datos en el carchivo .txt.
+    # función que permite guardar los datos en el archivo .txt.
     def agregarPersonas(self):
         opcion= self.vista.opcionPersona()
         codigo, nombre, direccion, telefono = self.vista.obtenerDatosPersona()
@@ -111,3 +111,4 @@ class ControladorPersona:
                 break
             else:
                 print("Opción inválida. Por favor, intente nuevamente.\n")
+            opcion = self.vista.mostrarMenuPersona()

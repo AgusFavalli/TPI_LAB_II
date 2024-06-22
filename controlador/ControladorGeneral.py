@@ -4,7 +4,6 @@ from controlador.ControladorRaza import ControladorRaza
 from controlador.ControladorVacuna import ControladorVacuna
 from controlador.ControladorDiagnostico import ControladorDiagnostico
 from controlador.ControladorTratamiento import ControladorTratamiento
-from controlador.ControladorFichaMedica import ControladorFichaMedica
 from vista.VistaGeneral import VistaGeneral
 
 class ControladorGeneral:
@@ -16,7 +15,6 @@ class ControladorGeneral:
         self.controladorTratamiento= ControladorTratamiento()
         self.controladorMascotas = ControladorMascotas(self.controladorRaza, self.controladorPersonas)
         self.controladorDiagnostico= ControladorDiagnostico(self.controladorTratamiento, self.controladorVacuna)
-        self.controladorFichaMedica = ControladorFichaMedica()
 
     def cargarArchivos(self):       #carga los archivos txt a las listas de cada clase
         self.controladorPersonas.cargarArchivoPersonas()
@@ -34,20 +32,20 @@ class ControladorGeneral:
         while opcion != "0":
             if opcion == "1":  #gestion de razas
                 self.controladorRaza.ejecutarMenuRazas()
-            #elif opcion == "2": #gestion de personas
-            #    self.controladorPersonas.ejecutarMenuPersonas()
+            elif opcion == "2": #gestion de personas
+                self.controladorPersonas.ejecutarMenuPersonas()
             elif opcion == "3": #gestion de diagnosticos
                 self.controladorDiagnostico.ejecutarMenuDiagnosticos()
             elif opcion == "4": #gestion de tratamiento
                 self.controladorTratamiento.ejecutarMenuTratamientos()
             elif opcion == "5": #gestion de vacunas
                 self.controladorVacuna.ejecutarMenuVacunas()
-            elif opcion == "6":
-                self.controladorPersonas.listadoPersonas()
-            elif opcion == "7":
+            elif opcion == "6": #gestion de mascotas
+                self.controladorMascotas.ejecutarMenuMascotas()
+            elif opcion == "7": #gestion de ficha medica
                 self.controladorDiagnostico.eliminarDiagnostico()
-            elif opcion == "8":
-                self.controladorFichaMedica.ejecutarMenuFichaMedica()              
             else:
                 self.vista.getMensaje("La opcion indicada no es valida")
             opcion= self.vista.menu()
+
+    

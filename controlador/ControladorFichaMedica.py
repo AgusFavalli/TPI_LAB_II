@@ -126,15 +126,27 @@ class ControladorFichaMedica:
             self.vista.mostrarMensajeVariable("No existe una ficha médica para la mascota llamada", nombreMascota)
 
 # .-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
-    def modificarFichaMedica(self):
-        # Modifica una ficha médica específica
-        self.listarFichasMedicas()
-        nombreMascota = self.vista.solicitarNombreMascota()
-        fichaMedica = self.cargarFichaMedica(nombreMascota)
-        if fichaMedica:
-            nuevosDatos = self.vista.solicitarDatosFichaMedica()
-            self.guardarFichaMedica(nombreMascota, nuevosDatos)
-            self.vista.mostrarMensaje("Ficha médica actualizada con éxito.")
+    def modificarInformacionExistente(self):
+         # Modifica la información contenida en una línea de una ficha médica existente
+         self.listarFichasMedicas()
+         nombreMascota = self.vista.solicitarNombreMascota()
+         rutaArchivo = os.path.join(self.rutaArchivosFichasMedicas, f"{nombreMascota}.txt")
+         if os.path.exists(rutaArchivo):
+            contenido = self.cargarFichaMedica(nombreMascota)
+            if contenido:
+                self.vista.mostrarMensaje("Seleccione la línea que desea modificar:")
+                lineas = contenido.strip().split('\n')
+                for idx, linea in enumerate(lineas):
+                    self.vista.mostrarMensaje(f"{idx + 1}: {linea}")
+                indiceLinea = int(self.vista.pedir("Ingrese el número de la línea a modificar: ")) - 1
+                nuevosDatos = self.vista.solicitarDatosFichaMedica()
+                lineas[indiceLinea] = f"{nuevosDatos['fecha']},{nuevosDatos['tratamiento']},{nuevosDatos['veterinario']},{nuevosDatos['diagnosticos']},{nuevosDatos['vacunas']}"
+                with open(rutaArchivo, "w") as file:
+                    file.write('\n'.join(lineas) + '\n')
+                self.vista.mostrarMensaje("Modificación correcta.")
+         else:
+            self.vista.mostrarMensajeVariable("No existe una ficha médica para la mascota llamada", nombreMascota)
+
 # .-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
 
     def ejecutarMenuFichaMedica(self):
@@ -154,7 +166,7 @@ class ControladorFichaMedica:
                 self.vista.limpiarPantalla()
             elif opcion == '4': #Modificar información existente
                 self.vista.limpiarPantalla()
-                self.modificarFichaMedica()
+                self.modificarInformacionExistente()
             elif opcion == '5': #Eliminar una ficha médica
                 self.vista.limpiarPantalla()
                 self.eliminarFichaMedica()               

@@ -1,8 +1,8 @@
 from controlador.ControladorGeneral import ControladorGeneral
 
-def main():
-    controlador = ControladorGeneral()    
+def inicio():
+    controlador = ControladorGeneral()
     controlador.menu()
 
-if __name__ == "__main__":
-    main()
+if __name__ =="__main__":
+    inicio()
