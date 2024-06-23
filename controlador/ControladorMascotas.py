@@ -87,7 +87,7 @@ class ControladorMascotas:
                 self.eliminarMascota()
             elif opcion == "5":  # 5- salir
                 self.vista.mostrarMensaje("Volviendo al menu principal...")
-                break
+                return
             else:
                 print("Opción inválida. Por favor, intente nuevamente.\n")
             opcion = self.vista.mostrarMenuMascotas()

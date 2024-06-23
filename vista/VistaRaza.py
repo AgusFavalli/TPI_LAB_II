@@ -1,11 +1,11 @@
 class VistaRaza:
     def mostrarMenuPersona(self):
-        print("Menú de Gestión de Razas\n"
+        print("\nMenú de Gestión de Razas\n"
             "1- Ver lista razas\n"
             "2- Agregar una nueva raza\n"
             "3- Modificar raza registrada\n"
             "4- Eliminar una raza\n"
-            "5- Volver\n")
+            "5- Volver al menu principal\n")
         return input("Seleccione una opción: ")
 
     def modificarRaza(self):

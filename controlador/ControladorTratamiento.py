@@ -15,8 +15,14 @@ class ControladorTratamiento:
 
     def buscarObjetoTratamiento(self,tratamiento):
         for i in self.listaTratamientos:
-            if i.getCodigo() == tratamiento:
+            if str(i.getCodigo()) == tratamiento:
                 return i.getDatosTratamiento()
+
+    def buscarNombreTratamiento(self,nombre):
+        for i in self.listaTratamientos:
+            if str(i.getNombre) == nombre:
+                return i.getCodigo
+        return None
 
     def listadoTratamientos(self):
         self.vista.mostrarLista(self.listaTratamientos)
@@ -24,9 +30,10 @@ class ControladorTratamiento:
     def agregarTratamiento(self):
         codigo = len(self.listaTratamientos) + 1
         nombre, descripcion = self.vista.obtenerTratamiento()
+        nuevoTratamiento= Tratamiento(codigo, nombre, descripcion)
+        self.listaTratamientos.append(nuevoTratamiento)
         with open('archivos/tratamientos.txt', 'a', encoding="utf-8") as file:
             file.write(f"{codigo},{nombre},{descripcion}\n")
-            self.listaTratamientos.append(f"{codigo},{nombre},{descripcion}\n")
         self.vista.mostrarMensaje("Tratamiento agregado con éxito.")
 
     def modificarTratamiento(self):
@@ -34,7 +41,7 @@ class ControladorTratamiento:
         tratamiento_actual, nueva_tratamiento= self.vista.modificarTratamiento()
         tratamiento_modificar= self.buscarObjeto(tratamiento_actual)
         if tratamiento_modificar:
-            tratamiento_modificar.setNombre(tratamiento_actual)
+            tratamiento_modificar.setNombre(nueva_tratamiento)
             self.vista.mostrarMensaje("El tratamiento fue modificado con exito")
             with open('archivos/tratamientos.txt', 'w', encoding="utf-8") as file:
                 for tratamiento in self.listaTratamientos:
@@ -43,22 +50,19 @@ class ControladorTratamiento:
     def eliminarTratamiento(self):
         self.vista.mostrarLista(self.listaTratamientos)
         codigo = self.vista.eliminarTratamiento()
-        tratamientoEncontrado = True
+        tratamientoEncontrado = False
         for i in self.listaTratamientos:
-            if i.getCodigo() == codigo:
+            if str(i.getCodigo()) == codigo:
                 self.listaTratamientos.remove(i)
-                with open("archivos/tratamientos.txt") as file:
-                    lineas = file.readlines()
-                with open("archivos/tratamientos.txt", "w") as file:
-                    for linea in lineas:
-                        if linea.startswith(codigo):
-                            pass
-                        else:
-                            file.write(linea)
+                with open("archivos/tratamientos.txt", "w+", encoding="utf-8") as file:
+                    for linea in self.listaTratamientos:
+                        file.write(f"{linea.getCodigo()}, {linea.getNombre()}, {linea.getDescripcion()}")
                 self.vista.mostrarMensaje("tratamiento eliminado")
+                tratamientoEncontrado= True
                 break
-        if not tratamientoEncontrado:
-            self.vista.mostrarMensaje("vacuna no encontrada")
+
+            else:
+                self.vista.mostrarMensaje("vacuna no encontrada")
 
     def buscarObjeto(self,tratamiento):
         for i in self.listaTratamientos:
@@ -78,7 +82,7 @@ class ControladorTratamiento:
                 self.eliminarTratamiento()
             elif opcion == "5":  # 5- salir
                 self.vista.mostrarMensaje("Volviendo al menu principal...")
-                break
+                return
             else:
                 print("Opción inválida. Por favor, intente nuevamente.\n")
             opcion = self.vista.mostrarMenuTratamiento()

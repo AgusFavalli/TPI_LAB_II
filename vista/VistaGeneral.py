@@ -1,11 +1,14 @@
 class VistaGeneral:
     def bienvenida(self):
-        print("-----BIENVENIDOS-----"
+        print("\n-----BIENVENIDOS-----"
               "\n1 - Menu gestion de razas"
               "\n2 - Menu gestion de Personas"
               "\n3 - Menu gestion de diagnosticos"
               "\n4 - Menu gestion de tratamientos"
               "\n5 - Menu gestion de vacunas"
+              "\n6 - Menu gestion de mascotas"
+              "\n7 - Menu gestion de ficha medica"
+              "\n8 - Salir"
               )
 
     def menu(self):
