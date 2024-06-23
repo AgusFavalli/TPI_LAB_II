@@ -33,7 +33,7 @@ class ControladorTratamiento:
         nuevoTratamiento= Tratamiento(codigo, nombre, descripcion)
         self.listaTratamientos.append(nuevoTratamiento)
         with open('archivos/tratamientos.txt', 'a', encoding="utf-8") as file:
-            file.write(f"{codigo},{nombre},{descripcion}\n")
+            file.write(f"\n{codigo}, {nombre}, {descripcion}")
         self.vista.mostrarMensaje("Tratamiento agregado con éxito.")
 
     def modificarTratamiento(self):
@@ -45,7 +45,7 @@ class ControladorTratamiento:
             self.vista.mostrarMensaje("El tratamiento fue modificado con exito")
             with open('archivos/tratamientos.txt', 'w', encoding="utf-8") as file:
                 for tratamiento in self.listaTratamientos:
-                    file.write(f"{tratamiento.getCodigo()},{tratamiento.getNombre()},{tratamiento.getDescripcion()}\n")
+                    file.write(f"\n{tratamiento.getCodigo()},{tratamiento.getNombre()},{tratamiento.getDescripcion()}")
 
     def eliminarTratamiento(self):
         self.vista.mostrarLista(self.listaTratamientos)
