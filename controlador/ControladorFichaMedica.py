@@ -147,6 +147,14 @@ class ControladorFichaMedica:
          else:
             self.vista.mostrarMensajeVariable("No existe una ficha médica para la mascota llamada", nombreMascota)
 
+
+    # Instancia una nueva ficha médica con los datos proporcionados
+    def instanciarFichaMedica(self, fecha, tratamiento, veterinario, diagnosticos, vacunas):
+        return FichaMedica(fecha, tratamiento, veterinario, diagnosticos, vacunas)
+
+
+
+
 # .-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
 
     def ejecutarMenuFichaMedica(self):
