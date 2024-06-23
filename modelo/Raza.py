@@ -9,5 +9,8 @@ class Raza:
     def getNombre(self):
         return self._nombre
 
+    def setNombre(self, raza):
+        self._nombre = raza
+
     def __str__(self):
-        return f"{self.getCodigo()}, {self.getNombre()}"
+        return f"{self.getCodigo()}- {self.getNombre()}"

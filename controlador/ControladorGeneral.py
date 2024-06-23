@@ -1,35 +1,50 @@
 from controlador.ControladorMascotas import ControladorMascotas
-from controlador.ControladorPropietario import ControladorPropietario
+from controlador.ControladorPersona import ControladorPersona
 from controlador.ControladorRaza import ControladorRaza
+from controlador.ControladorVacuna import ControladorVacuna
+from controlador.ControladorDiagnostico import ControladorDiagnostico
+from controlador.ControladorTratamiento import ControladorTratamiento
 from vista.VistaGeneral import VistaGeneral
 
 class ControladorGeneral:
     def __init__(self):
         self.vista= VistaGeneral()
-        self.controladorPropietarios= ControladorPropietario()
+        self.controladorPersonas= ControladorPersona()
         self.controladorRaza= ControladorRaza()
-        self.controladorMascotas = ControladorMascotas(self.controladorRaza, self.controladorPropietarios)
-
+        self.controladorVacuna= ControladorVacuna()
+        self.controladorTratamiento= ControladorTratamiento()
+        self.controladorMascotas = ControladorMascotas(self.controladorRaza, self.controladorPersonas)
+        self.controladorDiagnostico= ControladorDiagnostico(self.controladorTratamiento, self.controladorVacuna)
 
     def cargarArchivos(self):       #carga los archivos txt a las listas de cada clase
-        self.controladorPropietarios.cargarArchivoPropietarios()
+        self.controladorPersonas.cargarArchivoPersonas()
         self.controladorRaza.cargarArchivoRazas()
+        self.controladorVacuna.cargarArchivoVacunas()
+        self.controladorTratamiento.cargarArchivoTratamientos()
         self.controladorMascotas.cargarArchivoMascotas()
+        self.controladorDiagnostico.cargarArchivoDiagnosticos()
 
 
     def menu(self):
-        self.cargarArchivos()
-        self.vista.bienvenida()
-        opcion= self.vista.menu()
-        while opcion != "0":
-            if opcion == "1":  #muestra la lista mascotas activas
-                self.controladorMascotas.listadoMascotasActivas()
-            elif opcion == "2":
-                pass
-            elif opcion == "3":
-                pass
-            elif opcion == "4":
-                pass
+        self.cargarArchivos()   #carga todos los archivos a las listas
+        while True:
+            self.vista.bienvenida()
+            opcion = self.vista.menu()
+            if opcion == "1":  #gestion de razas
+                self.controladorRaza.ejecutarMenuRazas()
+            elif opcion == "2": #gestion de personas
+                self.controladorPersonas.ejecutarMenuPersonas()
+            elif opcion == "3": #gestion de diagnosticos
+                self.controladorDiagnostico.ejecutarMenuDiagnosticos()
+            elif opcion == "4": #gestion de tratamiento
+                self.controladorTratamiento.ejecutarMenuTratamientos()
+            elif opcion == "5": #gestion de vacunas
+                self.controladorVacuna.ejecutarMenuVacunas()
+            elif opcion == "6": #gestion de mascotas
+                self.controladorMascotas.ejecutarMenuMascotas()
+            elif opcion == "7": #gestion de ficha medica
+                self.controladorDiagnostico.eliminarDiagnostico()
+            elif opcion == "8": #salir
+                break
             else:
                 self.vista.getMensaje("La opcion indicada no es valida")
-            opcion= self.vista.menu()

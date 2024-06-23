@@ -21,11 +21,14 @@ class Mascota:
     def getPropietario(self):
         return self._propietario
 
+    def setNombre(self,dato):
+        self._nombre = dato
+
     def isActivas(self):
         return self._codigo == "1"
 
     def __str__(self):
-        return f"{self.getCodigo()},{self.getNombre()}, {self.getEspecie()},{self.getRaza()},{self.getPropietario()} "
+        return f"{self.getCodigo()}- {self.getNombre()}, {self.getEspecie()},{self.getRaza()},{self.getPropietario()} "
 
     def __repr__(self):
-        return f"{self.getCodigo()}, {self.getNombre()},{self.getEspecie()},{self.getRaza()},{self.getPropietario()}"
+        return f"{self.getCodigo()}- {self.getNombre()},{self.getEspecie()},{self.getRaza()},{self.getPropietario()}"
