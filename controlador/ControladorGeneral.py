@@ -26,7 +26,7 @@ class ControladorGeneral:
 
 
     def menu(self):
-        self.cargarArchivos()
+        self.cargarArchivos()   #carga todos los archivos a las listas
         while True:
             self.vista.bienvenida()
             opcion = self.vista.menu()

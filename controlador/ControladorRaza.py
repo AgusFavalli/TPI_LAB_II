@@ -1,19 +1,18 @@
 from vista.VistaRaza import VistaRaza
 from modelo.Raza import Raza
 
-
 class ControladorRaza:
     def __init__(self):
         self.vista= VistaRaza()
         self.listaRazas=[]
 
-    def cargarArchivoRazas(self):
+    def cargarArchivoRazas(self):   #carga el archivo en una lista, se instancia la clase
         with open("archivos/razas.txt") as archivo:
             for linea in archivo.readlines():
                 codigo, nombre= linea.strip().split(",")
                 self.listaRazas.append(Raza(codigo, nombre))
 
-    def buscarObjeto(self,raza):
+    def buscarObjeto(self,raza):   #compara un str ingresado con un codigo de un objeto, si lo encuentra devuelve el objeto
         for i in self.listaRazas:
             if str(i.getCodigo()) == raza:
                 return i
@@ -26,11 +25,11 @@ class ControladorRaza:
         nombre= self.vista.obtenerRaza()
         nuevaRaza= Raza(codigo, nombre)
         self.listaRazas.append(nuevaRaza)
-        with open('archivos/razas.txt', 'a', encoding="utf-8") as file:
+        with open('archivos/razas.txt', 'a', encoding="utf-8") as file:   #al agregar una nueva raza agrega dos variables en una linea
             file.write(f"{codigo}, {nombre}\n")
         self.vista.mostrarMensaje("Raza agregada con éxito.")
 
-    def modificarRaza(self):
+    def modificarRaza(self):   #al modificar el nombre de una raza reescribe los datos en el archivo
         self.listadoRazas()
         raza_actual, nueva_raza= self.vista.modificarRaza()
         raza_modificar= self.buscarObjeto(raza_actual)
