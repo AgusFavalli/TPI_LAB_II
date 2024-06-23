@@ -16,7 +16,7 @@ class Persona:
 
     def getTelefono(self):
         return self._telefono
-    
+
     def setNombre(self, dato):
         self._nombre = dato
 
@@ -26,12 +26,11 @@ class Persona:
     def setCodigo(self, dato):
         self._codigo = dato
 
-
     def __str__(self):
-        return f"{self.getCodigo()},{self.getNombre()}, {self.getDireccion()}, {self.getTelefono()}"
+        return f"{self.getNombre()}, {self.getDireccion()}, {self.getTelefono()}, {self.getCodigo()}"
 
     def __repr__(self):
-        return f"{self.getCodigo()},{self.getNombre()}, {self.getDireccion()}, {self.getTelefono()}"
+        return f"{self.getNombre()}, {self.getDireccion()}, {self.getTelefono()}, {self.getCodigo()}"
 
 class Veterinario(Persona):
     def __init__(self, codigo, nombre, direccion, telefono):

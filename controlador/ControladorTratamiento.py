@@ -21,7 +21,7 @@ class ControladorTratamiento:
     def buscarNombreTratamiento(self,nombre):
         for i in self.listaTratamientos:
             if str(i.getNombre) == nombre:
-                return i.getCodigo
+                return i.getCodigo()
         return None
 
     def listadoTratamientos(self):
@@ -43,7 +43,7 @@ class ControladorTratamiento:
         if tratamiento_modificar:
             tratamiento_modificar.setNombre(nueva_tratamiento)
             self.vista.mostrarMensaje("El tratamiento fue modificado con exito")
-            with open('archivos/tratamientos.txt', 'w', encoding="utf-8") as file:
+            with open('archivos/tratamientos.txt', 'w+', encoding="utf-8") as file:
                 for tratamiento in self.listaTratamientos:
                     file.write(f"\n{tratamiento.getCodigo()},{tratamiento.getNombre()},{tratamiento.getDescripcion()}")
 
@@ -56,7 +56,7 @@ class ControladorTratamiento:
                 self.listaTratamientos.remove(i)
                 with open("archivos/tratamientos.txt", "w+", encoding="utf-8") as file:
                     for linea in self.listaTratamientos:
-                        file.write(f"{linea.getCodigo()}, {linea.getNombre()}, {linea.getDescripcion()}")
+                        file.write(f"{linea.getCodigo()}, {linea.getNombre()}, {linea.getDescripcion()}\n")
                 self.vista.mostrarMensaje("tratamiento eliminado")
                 tratamientoEncontrado= True
                 break
@@ -66,7 +66,7 @@ class ControladorTratamiento:
 
     def buscarObjeto(self,tratamiento):
         for i in self.listaTratamientos:
-            if i.getCodigo() == tratamiento:
+            if str(i.getCodigo()) == tratamiento:
                 return i
 
     def ejecutarMenuTratamientos(self):
@@ -80,9 +80,15 @@ class ControladorTratamiento:
                 self.modificarTratamiento()
             elif opcion == "4":  # 4- eliminar tratamientos
                 self.eliminarTratamiento()
-            elif opcion == "5":  # 5- salir
+            elif opcion == "5":  # 5- cantidad de tratamientos
+                self.cantidadTratamientos()
+            elif opcion == "6":  # 6- salir
                 self.vista.mostrarMensaje("Volviendo al menu principal...")
                 return
             else:
                 print("Opción inválida. Por favor, intente nuevamente.\n")
             opcion = self.vista.mostrarMenuTratamiento()
+
+    def cantidadTratamientos(self): #CANTIDAD TRATAMIENTOS
+        cantidad = len(self.listaTratamientos)
+        self.vista.mostrarMensaje(f"La cantidad de tratamientos aplicados es: {cantidad}")
