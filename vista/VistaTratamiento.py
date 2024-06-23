@@ -5,7 +5,8 @@ class VistaTratamiento:
               "2- Agregar un nuevo tratamiento\n"
               "3- Modificar tratamiento registrado\n"
               "4- Eliminar un tratamiento\n"
-              "5- Volver\n")
+              "5- Cantidad de tratamiento\n"
+              "6- Volver\n")
         return input("Seleccione una opción: ")
 
     def mostrarMensaje(self, dato):
@@ -28,3 +29,4 @@ class VistaTratamiento:
         viejo_tratamiento= input("ingrese el codigo del tratamiento actual que desea modificar")
         nuevo_tratamiento= input("ingrese el nuevo nombre del tratamiento")
         return viejo_tratamiento, nuevo_tratamiento
+    

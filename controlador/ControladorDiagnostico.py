@@ -10,6 +10,8 @@ class ControladorDiagnostico:
 
 
     def cargarArchivoDiagnosticos(self):
+        self.listaDiagnosticos = []  # Reiniciar la lista de diagnósticos
+        self.contadorDiagnostico = {}  # Reiniciar el contador de diagnósticos
         with open("archivos/diagnosticos.txt", encoding="utf-8") as archivo:
             for linea in archivo.readlines():
                 codigo, descripcion, tratamientos, vacunas = linea.strip().split(",")
@@ -23,6 +25,7 @@ class ControladorDiagnostico:
                 else:
                     diagnostico.registrarVacuna(f"Vacunas: {objVacunas}")
                 self.listaDiagnosticos.append(diagnostico)
+
 
     def buscarObjeto(self,diagnostico):
         for i in self.listaDiagnosticos:
@@ -89,10 +92,9 @@ class ControladorDiagnostico:
                 self.modificarDiagnostico()
             elif opcion == "4":  # 4- eliminar diagnosticos
                 self.eliminarDiagnostico()
-            elif opcion == "5":  # 5- salir
+            elif opcion == "5":  # 6- salir
                 self.vista.mostrarMensaje("Volviendo al menu principal...")
                 return
             else:
                 print("Opción inválida. Por favor, intente nuevamente.\n")
             opcion = self.vista.mostrarMenuDiagnosticos()
-

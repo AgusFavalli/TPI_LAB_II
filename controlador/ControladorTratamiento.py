@@ -80,9 +80,15 @@ class ControladorTratamiento:
                 self.modificarTratamiento()
             elif opcion == "4":  # 4- eliminar tratamientos
                 self.eliminarTratamiento()
-            elif opcion == "5":  # 5- salir
+            elif opcion == "5":  # 5- cantidad de tratamientos
+                self.cantidadTratamientos()
+            elif opcion == "6":  # 6- salir
                 self.vista.mostrarMensaje("Volviendo al menu principal...")
                 return
             else:
                 print("Opción inválida. Por favor, intente nuevamente.\n")
             opcion = self.vista.mostrarMenuTratamiento()
+
+    def cantidadTratamientos(self): #CANTIDAD TRATAMIENTOS
+        cantidad = len(self.listaTratamientos)
+        self.vista.mostrarMensaje(f"La cantidad de tratamientos aplicados es: {cantidad}")
