@@ -26,10 +26,10 @@ class ControladorGeneral:
 
 
     def menu(self):
-        self.cargarArchivos()
-        self.vista.bienvenida()
-        opcion= self.vista.menu()
-        while opcion != "0":
+        self.cargarArchivos()   #carga todos los archivos a las listas
+        while True:
+            self.vista.bienvenida()
+            opcion = self.vista.menu()
             if opcion == "1":  #gestion de razas
                 self.controladorRaza.ejecutarMenuRazas()
             elif opcion == "2": #gestion de personas
@@ -44,8 +44,7 @@ class ControladorGeneral:
                 self.controladorMascotas.ejecutarMenuMascotas()
             elif opcion == "7": #gestion de ficha medica
                 self.controladorDiagnostico.eliminarDiagnostico()
+            elif opcion == "8": #salir
+                break
             else:
                 self.vista.getMensaje("La opcion indicada no es valida")
-            opcion= self.vista.menu()
-
-    

@@ -1,6 +1,6 @@
 class VistaDiagnostico:
     def mostrarMenuDiagnosticos(self):
-        print("Menú de Gestión de Diagnosticos\n"
+        print("\nMenú de Gestión de Diagnosticos\n"
               "1- Ver lista diagnosticos\n"
               "2- Agregar un nuevo diagnostico\n"
               "3- Modificar diagnostico\n"

@@ -1,22 +1,23 @@
 class VistaPersona:
     def mostrarMenuPersona(self):
-        print("Menú de Gestión de Personas\n"
+        print("\nMenú de Gestión de Personas\n"
               "1- Ver lista personas\n"
               "2- ver lista de veterinarios\n"
               "3- ver lista de propietarios\n"
               "4- Agregar persona\n"
-              "5- -\n")
+              "5- Modificar datos de una persona\n"
+              "6- Eliminar una persona\n"
+              "7- Volver al menu principal\n")
         return input("Seleccione una opción: ")
 
     def opcionPersona(self):
-        return input("desea agregar veterinario digite 1, si desea agregar propietario digite 2")
+        return input("para veterinario digite 1, para propietario digite 2")
 
     def obtenerDatosPersona(self):
-        codigo = input("Ingrese el codigo: ")
         nombre = input("Ingrese el nombre: ")
         direccion = input("Ingrese la dirección: ")
         telefono = input("Ingrese el teléfono: ")
-        return codigo, nombre, direccion, telefono
+        return nombre, direccion, telefono
 
     def pedirMascota(self):
         return input("ingrese el numero de mascota")

@@ -16,7 +16,7 @@ class ControladorDiagnostico:
             for linea in archivo.readlines():
                 codigo, descripcion, tratamientos, vacunas = linea.strip().split(",")
                 objTratamientos = self.controladorTratamiento.buscarObjetoTratamiento(tratamientos)
-                objVacunas= self.controladorVacunas.buscarObjetoVacuna(vacunas)
+                objVacunas= self.controladorVacunas.buscarObjeto(vacunas)
                 diagnostico= Diagnostico(codigo, descripcion)
                 if objTratamientos:
                     diagnostico.registrarTratamiento(f"Tratamiento: {objTratamientos}")
@@ -29,18 +29,21 @@ class ControladorDiagnostico:
 
     def buscarObjeto(self,diagnostico):
         for i in self.listaDiagnosticos:
-            if i.getCodigo() == diagnostico:
+            if str(i.getCodigo()) == diagnostico:
                 return i
 
     def listadoDiagnosticos(self):
         self.vista.mostrarLista(self.listaDiagnosticos)
 
     def agregarDiagnostico(self):
-        codigo = str(len(self.listaDiagnosticos) + 1)
+        codigo = len(self.listaDiagnosticos) + 1
         descripcion, tratamiento, vacunas = self.vista.obtenerDiagnostico()
+        nuevoDiagnostico= Diagnostico(codigo, descripcion)
+        nuevoDiagnostico.registrarTratamiento(tratamiento)
+        nuevoDiagnostico.registrarVacuna(vacunas)
+        self.listaDiagnosticos.append(nuevoDiagnostico)
         with open('archivos/diagnosticos.txt', 'a', encoding="utf-8") as file:
             file.write(f"{codigo},{descripcion},{tratamiento},{vacunas}\n")
-            self.listaDiagnosticos.append(f"{codigo},{descripcion},{tratamiento},{vacunas}\n")
         self.vista.mostrarMensaje("Diagnostico agregado con éxito.")
 
     def modificarDiagnostico(self):
@@ -52,27 +55,31 @@ class ControladorDiagnostico:
             self.vista.mostrarMensaje("El diagnostico fue modificado con exito")
             with open('archivos/diagnosticos.txt', 'w', encoding="utf-8") as file:
                 for diagnostico in self.listaDiagnosticos:
-                    file.write(f"{diagnostico.getCodigo()},{diagnostico.getDescripcion()},{diagnostico.getTratamientos()},{diagnostico.getVacunas()}\n")
+                    objVacuna= self.controladorVacunas.buscarNombreVacuna(diagnostico.getVacunas())
+                    objTratamiento= self.controladorTratamiento.buscarNombreTratamiento(diagnostico.getTratamientos())
+                    if not objVacuna:
+                        self.controladorVacunas.agregarVacuna()
+                        self.ejecutarMenuDiagnosticos()
+                    if not objTratamiento:
+                        self.controladorTratamiento.agregarTratamiento()
+                        self.ejecutarMenuDiagnosticos()
+                    file.write(f"{diagnostico.getCodigo()},{diagnostico.getDescripcion()},{objTratamiento},{objVacuna}\n")
 
     def eliminarDiagnostico(self):
         self.vista.mostrarLista(self.listaDiagnosticos)
         codigo = self.vista.eliminarDiagnostico()
-        diagnosticoEncontrado = True
+        diagnosticoEncontrado = False
         for i in self.listaDiagnosticos:
-            if i.getCodigo() == codigo:
+            if str(i.getCodigo()) == codigo:
                 self.listaDiagnosticos.remove(i)
-                with open("archivos/diagnosticos.txt") as file:
-                    lineas = file.readlines()
-                with open("archivos/diagnosticos.txt", "w") as file:
-                    for linea in lineas:
-                        if linea.startswith(codigo):
-                            pass
-                        else:
-                            file.write(linea)
+                with open("archivos/diagnosticos.txt", "w+", encoding="utf-8") as file:
+                    for linea in self.listaDiagnosticos:
+                        file.write(f"{linea.getCodigo()}, {linea.getDescripcion()}, {linea.getTratamientos()}, {linea.getVacunas()}")
                 self.vista.mostrarMensaje("diagnostico eliminado")
+                diagnosticoEncontrado= True
                 break
-        if not diagnosticoEncontrado:
-            self.vista.mostrarMensaje("diagnostico no encontrado")
+            else:
+                self.vista.mostrarMensaje("diagnostico no encontrado")
 
     def ejecutarMenuDiagnosticos(self):
         opcion = self.vista.mostrarMenuDiagnosticos()
@@ -87,12 +94,7 @@ class ControladorDiagnostico:
                 self.eliminarDiagnostico()
             elif opcion == "5":  # 6- salir
                 self.vista.mostrarMensaje("Volviendo al menu principal...")
-                break
+                return
             else:
                 print("Opción inválida. Por favor, intente nuevamente.\n")
             opcion = self.vista.mostrarMenuDiagnosticos()
-
-        
-
-    def mostrar_ranking_diagnosticos(self):
-        self.vista.mostrarRanking(self.contadorDiagnostico.items())

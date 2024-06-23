@@ -12,58 +12,58 @@ class ControladorVacuna:
                 codigo, nombre, descripcion= linea.strip().split(",")
                 self.listaVacunas.append(Vacuna(codigo, nombre, descripcion))
 
-
-    def buscarObjetoVacuna(self,vacuna):
-        for i in self.listaVacunas:
-            if i.getCodigo() == vacuna:
-                return i.getNombre()
+    def actualizarArchivoVacunas(self):
+        with open("archivos/vacunas.txt", "w", encoding="utf-8") as archivo:
+            for vacuna in self.listaVacunas:
+                archivo.write(f"{vacuna.getCodigo()},{vacuna.getNombre()},{vacuna.getDescripcion()}\n")
 
     def listadoVacunas(self):
         self.vista.mostrarLista(self.listaVacunas)
 
     def buscarObjeto(self,vacuna):
         for i in self.listaVacunas:
-            if i.getCodigo() == vacuna:
-                return i
+            if str(i.getCodigo()) == vacuna:
+                return i.getDatosVacunas()
+        return None
+
+    def buscarNombreVacuna(self,nombre):
+        for i in self.listaVacunas:
+            if str(i.getNombre) == nombre:
+                return i.getCodigo
+        return None
 
     def agregarVacuna(self):
         codigo = len(self.listaVacunas) + 1
         nombre, descripcion = self.vista.obtenerVacuna()
+        nuevaVacuna= Vacuna(codigo,nombre,descripcion)
+        self.listaVacunas.append(nuevaVacuna)
         with open('archivos/vacunas.txt', 'a', encoding="utf-8") as file:
-            file.write(f"{codigo},{nombre},{descripcion}\n")
-            self.listaVacunas.append(f"{codigo},{nombre},{descripcion}\n")
+            file.write(f"{codigo}, {nombre}, {descripcion}\n")
         self.vista.mostrarMensaje("Vacuna agregada con éxito.")
+        self.actualizarArchivoVacunas()
 
     def modificarVacuna(self):
         self.listadoVacunas()
         vacuna_actual, nueva_vacuna= self.vista.modificarVacuna()
         vacuna_modificar= self.buscarObjeto(vacuna_actual)
         if vacuna_modificar:
-            vacuna_modificar.setNombre(vacuna_actual)
+            vacuna_modificar.setNombre(nueva_vacuna)
             self.vista.mostrarMensaje("La vacuna fue modificada con exito")
-            with open('archivos/vacunas.txt', 'w', encoding="utf-8") as file:
-                for vacuna in self.listaVacunas:
-                    file.write(f"{vacuna.getCodigo()},{vacuna.getNombre()},{vacuna.getDescripcion()}\n")
+            self.actualizarArchivoVacunas()
+        else:
+            self.vista.mostrarMensaje("vacuna no encontrada")
 
     def eliminarVacuna(self):
         self.vista.mostrarLista(self.listaVacunas)
         codigo = self.vista.eliminarVacuna()
-        vacunaEncontrada = True
+        vacunaEncontrada = False
         for i in self.listaVacunas:
-            if i.getCodigo() == codigo:
+            if str(i.getCodigo()) == codigo:
                 self.listaVacunas.remove(i)
-                with open("archivos/vacunas.txt") as file:
-                    lineas = file.readlines()
-                with open("archivos/vacunas.txt", "w") as file:
-                    for linea in lineas:
-                        if linea.startswith(codigo):
-                            pass
-                        else:
-                            file.write(linea)
+                self.actualizarArchivoVacunas()
                 self.vista.mostrarMensaje("vacuna eliminada")
+                vacunaEncontrada= True
                 break
-        if not vacunaEncontrada:
-            self.vista.mostrarMensaje("vacuna no encontrada")
 
     def ejecutarMenuVacunas(self):
         opcion = self.vista.mostrarMenuVacunas()
@@ -78,7 +78,7 @@ class ControladorVacuna:
                 self.eliminarVacuna()
             elif opcion == "5":  # 5- salir
                 self.vista.mostrarMensaje("Volviendo al menu principal...")
-                break
+                return
             else:
-                print("Opción inválida. Por favor, intente nuevamente.\n")
+                print("Opción inválida. Por favor, intente nuevamente.")
             opcion = self.vista.mostrarMenuVacunas()

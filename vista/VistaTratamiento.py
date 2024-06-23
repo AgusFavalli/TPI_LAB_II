@@ -1,6 +1,6 @@
 class VistaTratamiento:
     def mostrarMenuTratamiento(self):
-        print("Menú de Gestión de Tratamientos\n"
+        print("\nMenú de Gestión de Tratamientos\n"
               "1- Ver lista tratamientos\n"
               "2- Agregar un nuevo tratamiento\n"
               "3- Modificar tratamiento registrado\n"

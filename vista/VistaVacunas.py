@@ -1,6 +1,6 @@
 class VistaVacunas:
     def mostrarMenuVacunas(self):
-        print("Menú de Gestión de Vacunas\n"
+        print("\nMenú de Gestión de Vacunas\n"
             "1- Ver lista Vacunas\n"
             "2- Agregar una nueva vacuna\n"
             "3- Modificar vacuna registrada\n"

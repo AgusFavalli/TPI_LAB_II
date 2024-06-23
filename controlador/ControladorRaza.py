@@ -1,21 +1,20 @@
 from vista.VistaRaza import VistaRaza
 from modelo.Raza import Raza
 
-
 class ControladorRaza:
     def __init__(self):
         self.vista= VistaRaza()
         self.listaRazas=[]
 
-    def cargarArchivoRazas(self):
+    def cargarArchivoRazas(self):   #carga el archivo en una lista, se instancia la clase
         with open("archivos/razas.txt") as archivo:
             for linea in archivo.readlines():
                 codigo, nombre= linea.strip().split(",")
                 self.listaRazas.append(Raza(codigo, nombre))
 
-    def buscarObjeto(self,raza):
+    def buscarObjeto(self,raza):   #compara un str ingresado con un codigo de un objeto, si lo encuentra devuelve el objeto
         for i in self.listaRazas:
-            if i.getCodigo() == raza:
+            if str(i.getCodigo()) == raza:
                 return i
 
     def listadoRazas(self):
@@ -23,13 +22,14 @@ class ControladorRaza:
 
     def agregarRaza(self):
         codigo = len(self.listaRazas) + 1
-        nombre = self.vista.obtenerRaza()
-        with open('archivos/razas.txt', 'a', encoding="utf-8") as file:
-            file.write(f"{codigo},{nombre}\n")
-            self.listaRazas.append(f"{codigo},{nombre}\n")
+        nombre= self.vista.obtenerRaza()
+        nuevaRaza= Raza(codigo, nombre)
+        self.listaRazas.append(nuevaRaza)
+        with open('archivos/razas.txt', 'a', encoding="utf-8") as file:   #al agregar una nueva raza agrega dos variables en una linea
+            file.write(f"{codigo}, {nombre}\n")
         self.vista.mostrarMensaje("Raza agregada con éxito.")
 
-    def modificarRaza(self):
+    def modificarRaza(self):   #al modificar el nombre de una raza reescribe los datos en el archivo
         self.listadoRazas()
         raza_actual, nueva_raza= self.vista.modificarRaza()
         raza_modificar= self.buscarObjeto(raza_actual)
@@ -43,22 +43,18 @@ class ControladorRaza:
     def eliminarRaza(self):
         self.vista.mostrarLista(self.listaRazas)
         codigo = self.vista.eliminarRaza()
-        razaEncontrada = True
+        razaEncontrada = False
         for i in self.listaRazas:
-            if i.getCodigo() == codigo:
+            if str(i.getCodigo()) == codigo:
                 self.listaRazas.remove(i)
-                with open("archivos/razas.txt") as file:
-                    lineas = file.readlines()
-                with open("archivos/razas.txt", "w") as file:
-                    for linea in lineas:
-                        if linea.startswith(codigo):
-                            pass
-                        else:
-                            file.write(linea)
+                with open("archivos/razas.txt", "w+") as file:
+                    for linea in self.listaRazas:
+                        file.write(f"{linea.getCodigo()},{linea.getNombre()}\n")
                 self.vista.mostrarMensaje("Raza eliminada")
+                razaEncontrada=True
                 break
-        if not razaEncontrada:
-            self.vista.mostrarMensaje("raza no encontrada")
+            else:
+                self.vista.mostrarMensaje("Raza no encontrada")
 
     def ejecutarMenuRazas(self):
         opcion = self.vista.mostrarMenuPersona()
@@ -73,7 +69,7 @@ class ControladorRaza:
                 self.eliminarRaza()
             elif opcion == "5":  # 5- salir
                 self.vista.mostrarMensaje("Volviendo al menu principal...")
-                break
+                return
             else:
-                print("Opción inválida. Por favor, intente nuevamente.\n")
+                print("Opción inválida. Por favor, intente nuevamente.")
             opcion = self.vista.mostrarMenuPersona()
