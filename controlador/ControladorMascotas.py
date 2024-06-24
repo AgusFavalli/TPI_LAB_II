@@ -14,10 +14,14 @@ class ControladorMascotas:
         with open("archivos/mascotas.txt") as archivo:
             for linea in archivo.readlines():
                 codigo, nombre, especie, raza, propietario= linea.strip().split(",")
-                objRaza= self.controladorRaza.buscarObjeto(raza)
-                objPropietario = self.controladorPersonas.buscarObjetoPropietario(propietario)
-                self.listaMascotas.append(Mascota(codigo, nombre, especie, objRaza, objPropietario))
+                #objRaza= self.controladorRaza.buscarObjeto(raza)
+                #objPropietario = self.controladorPersonas.buscarObjetoPropietario(propietario)
+                self.listaMascotas.append(Mascota(codigo, nombre, especie, raza, propietario))
 
+    def actualizarArchivoMascotas(self):
+        with open("archivos/mascotas.txt", "w", encoding="utf-8") as archivo:
+            for mascota in self.listaMascotas:
+                archivo.write(f"{mascota.getCodigo()}, {mascota.getNombre()}, {mascota.getEspecie()}, {mascota.getRaza()}, {mascota.getPropietario()}\n")
     def listadoMascotas(self):
         self.vista.mostrarLista(self.listaMascotas)
 
@@ -32,46 +36,44 @@ class ControladorMascotas:
 
     def buscarObjeto(self,mascota):
         for i in self.listaMascotas:
-            if i.getCodigo() == mascota:
+            if str(i.getCodigo()) == mascota:
                 return i
 
     def agregarMascota(self):
         codigo = len(self.listaMascotas) + 1
+        self.vista.mostrarLista(self.controladorRaza.listaRazas)
+        self.vista.mostrarLista(self.controladorPersonas.listaPropietarios)
         nombre, especie, raza, propietario = self.vista.obtenerMascota()
+        nuevaMascota= Mascota(codigo,nombre,especie,raza,propietario)
+        self.listaMascotas.append(nuevaMascota)
         with open('archivos/mascotas.txt', 'a', encoding="utf-8") as file:
             file.write(f"{codigo},{nombre},{especie},{raza},{propietario}\n")
-            self.listaMascotas.append(f"{codigo},{nombre},{especie},{raza},{propietario}\n")
         self.vista.mostrarMensaje("Mascota agregada con éxito.")
+        self.actualizarArchivoMascotas()
 
     def modificarMascota(self):
         self.listadoMascotas()
         mascota_actual, nueva_mascota= self.vista.modificarMascota()
         mascota_modificar= self.buscarObjeto(mascota_actual)
         if mascota_modificar:
-            mascota_modificar.setNombre(mascota_actual)
+            mascota_modificar.setNombre(nueva_mascota)
             self.vista.mostrarMensaje("La mascota fue modificada con exito")
-            with open('archivos/mascota.txt', 'w', encoding="utf-8") as file:
-                for mascota in self.listaMascotas:
-                    file.write(f"{mascota.getCodigo()},{mascota.getNombre()},{mascota.getEspecie()},{mascota.getRaza()},{mascota.getPropietario()}\n")
+            self.actualizarArchivoMascotas()
+        else:
+            self.vista.mostrarMensaje("mascota no encontrada")
 
     def eliminarMascota(self):
         self.vista.mostrarLista(self.listaMascotas)
         codigo = self.vista.eliminarMascota()
-        mascotaEncontrada = True
+        mascotaEncontrada = False
         for i in self.listaMascotas:
-            if i.getCodigo() == codigo:
+            if str(i.getCodigo()) == codigo:
                 self.listaMascotas.remove(i)
-                with open("archivos/mascotas.txt") as file:
-                    lineas = file.readlines()
-                with open("archivos/mascotas.txt", "w") as file:
-                    for linea in lineas:
-                        if linea.startswith(codigo):
-                            pass
-                        else:
-                            file.write(linea)
+                self.actualizarArchivoMascotas()
                 self.vista.mostrarMensaje("mascota eliminada")
+                mascotaEncontrada= True
                 break
-        if not mascotaEncontrada:
+        else:
             self.vista.mostrarMensaje("mascota no encontrada")
 
     def ejecutarMenuMascotas(self):
