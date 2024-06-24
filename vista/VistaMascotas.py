@@ -1,6 +1,6 @@
 class VistaMascotas:
     def mostrarMenuMascotas(self):
-        print("Menú de Gestión de Mascotas\n"
+        print("\nMenú de Gestión de Mascotas\n"
               "1- Ver lista mascotas\n"
               "2- Agregar una nueva mascota\n"
               "3- Modificar mascota registrada\n"

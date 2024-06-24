@@ -1,9 +1,9 @@
-1,    Antibiótico,    Tratamiento para infecciones bacterianas
-2,    Cirugía,    Intervención quirúrgica para fracturas
-3,    Terapia física,    Tratamiento de rehabilitación física
-4,    Desparasitación,    Eliminación de parásitos internos
-5,    Limpieza dental,    Higiene dental para prevenir infecciones
-6,    Quimioterapia,    Tratamiento para el cáncer
-7,    Hidratación,    Terapia de fluidos para deshidratación
-8,    Transfusión de sangre,    Reemplazo de sangre perdida
-9,    Tratamiento hormonal,    Regulación de hormonas
+1, Antibiótico, Tratamiento para infecciones bacterianas
+2, Cirugía, Intervención quirúrgica para fracturas
+3, Terapia física, Tratamiento de rehabilitación física
+4, Desparasitación, Eliminación de parásitos internos
+5, Limpieza dental, Higiene dental para prevenir infecciones
+6, Quimioterapia, Tratamiento para el cáncer
+7, Hidratación, Terapia de fluidos para deshidratación
+8, Transfusión de sangre, Reemplazo de sangre perdida
+9, Tratamiento hormonal, Regulación de hormonas

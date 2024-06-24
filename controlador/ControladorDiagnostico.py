@@ -26,6 +26,10 @@ class ControladorDiagnostico:
                     diagnostico.registrarVacuna(f"Vacunas: {objVacunas}")
                 self.listaDiagnosticos.append(diagnostico)
 
+    def actualizarArchivoDiagnostico(self):
+        with open("archivos/diagnosticos.txt", "w", encoding="utf-8") as archivo:
+            for diagnostico in self.listaDiagnosticos:
+                archivo.write(f"{diagnostico.getCodigo()}, {diagnostico.getDescripcion()}, {diagnostico.getVacunas()}, {diagnostico.getTratamientos()}\n")
 
     def buscarObjeto(self,diagnostico):
         for i in self.listaDiagnosticos:
@@ -45,6 +49,7 @@ class ControladorDiagnostico:
         with open('archivos/diagnosticos.txt', 'a', encoding="utf-8") as file:
             file.write(f"{codigo},{descripcion},{tratamiento},{vacunas}\n")
         self.vista.mostrarMensaje("Diagnostico agregado con éxito.")
+        self.actualizarArchivoDiagnostico()
 
     def modificarDiagnostico(self):
         self.listadoDiagnosticos()
@@ -63,7 +68,7 @@ class ControladorDiagnostico:
                     if not objTratamiento:
                         self.controladorTratamiento.agregarTratamiento()
                         self.ejecutarMenuDiagnosticos()
-                    file.write(f"{diagnostico.getCodigo()},{diagnostico.getDescripcion()},{objTratamiento},{objVacuna}\n")
+                    self.actualizarArchivoDiagnostico()
 
     def eliminarDiagnostico(self):
         self.vista.mostrarLista(self.listaDiagnosticos)
@@ -72,9 +77,7 @@ class ControladorDiagnostico:
         for i in self.listaDiagnosticos:
             if str(i.getCodigo()) == codigo:
                 self.listaDiagnosticos.remove(i)
-                with open("archivos/diagnosticos.txt", "w+", encoding="utf-8") as file:
-                    for linea in self.listaDiagnosticos:
-                        file.write(f"{linea.getCodigo()}, {linea.getDescripcion()}, {linea.getTratamientos()}, {linea.getVacunas()}")
+                self.actualizarArchivoDiagnostico()
                 self.vista.mostrarMensaje("diagnostico eliminado")
                 diagnosticoEncontrado= True
                 break

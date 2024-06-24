@@ -23,6 +23,14 @@ class ControladorPersona:
                     self.listaPropietarios.append(propietario)
                     self.listaPersonas.append(propietario)
 
+    def actualizarArchivoPersonas(self):
+        with open("archivos/personas.txt", "w", encoding="utf-8") as archivo:
+            for persona in self.listaPersonas:
+                for veterinario in self.listaVeterinarios:
+                    archivo.write(f"{veterinario.getCodigo()}, {veterinario.getNombre()}, {veterinario.getDireccion()}, {veterinario.getTelefono()}\n")
+                for propietario in self.listaPropietarios:
+                    archivo.write(f"{propietario.getCodigo()}, {propietario.getNombre()}, {propietario.getDireccion()}, {propietario.getTelefono()}, {propietario.getMascota()}\n")
+
     # función que permite guardar los datos en el archivo .txt.
     def agregarPersonas(self):
         opcion= self.vista.opcionPersona()
@@ -41,6 +49,7 @@ class ControladorPersona:
                 self.listaPropietarios.append(propietario)
                 self.listaPersonas.append(propietario)
         self.vista.mostrarMensaje("Persona agregada con éxito.")
+        self.actualizarArchivoPersonas()
 
     def modificarPersona(self):
         self.listadoPersonas()
@@ -49,16 +58,11 @@ class ControladorPersona:
         if opcion == "1":
             veterinario_modificar= self.buscarObjetoVeterinario(persona_actual)
             veterinario_modificar.setNombre(nueva_persona)
-            with open('archivos/personas.txt', 'w', encoding="utf-8") as file:
-                for veterinario in self.listaPersonas:
-                    file.write(f"{veterinario.getCodigo()},{veterinario.getNombre()},{veterinario.getDireccion()}, {veterinario.getTelefono()}\n")
         elif opcion =="2":
             persona_modificar= self.buscarObjetoPropietario(persona_actual)
             persona_modificar.setNombre(nueva_persona)
-            with open('archivos/personas.txt', 'w', encoding="utf-8") as file:
-                for propietario in self.listaPersonas:
-                    file.write(f"{propietario.getCodigo()},{propietario.getNombre()},{propietario.getDireccion()}, {propietario.getTelefono()}, {propietario.getMascota()}\n")
         self.vista.mostrarMensaje("la persona fue modificada con exito")
+        self.actualizarArchivoPersonas()
 
     def eliminarPersona(self):
         self.vista.mostrarLista(self.listaPersonas)
@@ -71,13 +75,7 @@ class ControladorPersona:
                     self.listaVeterinarios.remove(i)
                 elif codigo == "2": #propietario
                     self.listaPropietarios.remove(i)
-
-                with open ("archivos/personas.txt", "w+") as file:
-                    for linea in self.listaPersonas:
-                        if codigo == "1":
-                            file.write(f"{linea.getCodigo()}, {linea.getNombre()}, {linea.getDireccion()}, {linea.getTelefono()}")
-                        elif codigo == "2":
-                            file.write(f"{linea.getCodigo()}, {linea.getNombre()}, {linea.getDireccion()}, {linea.getTelefono()}, {linea.getMascota()}")
+                self.actualizarArchivoPersonas()
                 self.vista.mostrarMensaje("persona eliminada")
                 personaEncontrada= True
                 break
