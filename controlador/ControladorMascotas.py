@@ -37,7 +37,7 @@ class ControladorMascotas:
 
     def buscarObjeto(self,mascota):
         for i in self.listaMascotas:
-            if i.getCodigo() == mascota:
+            if str(i.getCodigo()) == mascota:
                 return i
 
     def agregarMascota(self):
@@ -47,7 +47,7 @@ class ControladorMascotas:
         self.vista.mostrarLista(self.controladorPersonas.listaPropietarios)
         codigo = len(self.listaMascotas) + 1
         nombre, especie, raza, propietario = self.vista.obtenerMascota()
-        nuevaMascota= Mascota(codigo, nombre, especie, raza, propietario)
+        nuevaMascota= Mascota(codigo,nombre,especie,raza,propietario)
         self.listaMascotas.append(nuevaMascota)
         with open('archivos/mascotas.txt', 'a', encoding="utf-8") as file:
             file.write(f"{codigo},{nombre},{especie},{raza},{propietario}\n")
@@ -76,8 +76,8 @@ class ControladorMascotas:
                 self.vista.mostrarMensaje("mascota eliminada")
                 mascotaEncontrada= True
                 break
-            else:
-                self.vista.mostrarMensaje("mascota no encontrada")
+        else:
+            self.vista.mostrarMensaje("mascota no encontrada")
 
     def ejecutarMenuMascotas(self):
         opcion = self.vista.mostrarMenuMascotas()

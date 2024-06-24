@@ -26,7 +26,6 @@ class Persona:
     def setCodigo(self, dato):
         self._codigo = dato
 
-
     def __str__(self):
         return f"{self.getNombre()}, {self.getDireccion()}, {self.getTelefono()}, {self.getCodigo()}"
 
@@ -51,4 +50,3 @@ class Propietario(Persona):
 
     def __repr__(self):
         return super().__str__()
-

@@ -64,8 +64,8 @@ class ControladorVacuna:
                 self.vista.mostrarMensaje("vacuna eliminada")
                 vacunaEncontrada= True
                 break
-            else:
-                self.vista.mostrarMensaje("vacuna no encontrada")
+        else:
+            self.vista.mostrarMensaje("vacuna no encontrada")
 
     def ejecutarMenuVacunas(self):
         opcion = self.vista.mostrarMenuVacunas()

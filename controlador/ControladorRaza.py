@@ -12,6 +12,11 @@ class ControladorRaza:
                 codigo, nombre= linea.strip().split(",")
                 self.listaRazas.append(Raza(codigo, nombre))
 
+    def actualizarArchivoRazas(self):
+        with open("archivos/razas.txt", "w", encoding="utf-8") as archivo:
+            for raza in self.listaRazas:
+                archivo.write(f"{raza.getCodigo()},{raza.getNombre()}\n")
+
     def buscarObjeto(self,raza):   #compara un str ingresado con un codigo de un objeto, si lo encuentra devuelve el objeto
         for i in self.listaRazas:
             if str(i.getCodigo()) == raza:
@@ -28,6 +33,7 @@ class ControladorRaza:
         with open('archivos/razas.txt', 'a', encoding="utf-8") as file:   #al agregar una nueva raza agrega dos variables en una linea
             file.write(f"{codigo}, {nombre}\n")
         self.vista.mostrarMensaje("Raza agregada con éxito.")
+        self.actualizarArchivoRazas()
 
     def modificarRaza(self):   #al modificar el nombre de una raza reescribe los datos en el archivo
         self.listadoRazas()
@@ -36,9 +42,9 @@ class ControladorRaza:
         if raza_modificar:
             raza_modificar.setNombre(nueva_raza)
             self.vista.mostrarMensaje("la raza fue modificada con exito")
-            with open('archivos/razas.txt', 'w', encoding="utf-8") as file:
-                for raza in self.listaRazas:
-                    file.write(f"{raza.getCodigo()},{raza.getNombre()}\n")
+            self.actualizarArchivoRazas()
+        else:
+            self.vista.mostrarMensaje("raza no encontrada")
 
     def eliminarRaza(self):
         self.vista.mostrarLista(self.listaRazas)
@@ -47,14 +53,12 @@ class ControladorRaza:
         for i in self.listaRazas:
             if str(i.getCodigo()) == codigo:
                 self.listaRazas.remove(i)
-                with open("archivos/razas.txt", "w+") as file:
-                    for linea in self.listaRazas:
-                        file.write(f"{linea.getCodigo()},{linea.getNombre()}\n")
+                self.actualizarArchivoRazas()
                 self.vista.mostrarMensaje("Raza eliminada")
                 razaEncontrada=True
                 break
-            else:
-                self.vista.mostrarMensaje("Raza no encontrada")
+        else:
+            self.vista.mostrarMensaje("Raza no encontrada")
 
     def ejecutarMenuRazas(self):
         opcion = self.vista.mostrarMenuPersona()

@@ -37,7 +37,7 @@ class ControladorTratamiento:
         nuevoTratamiento= Tratamiento(codigo, nombre, descripcion)
         self.listaTratamientos.append(nuevoTratamiento)
         with open('archivos/tratamientos.txt', 'a', encoding="utf-8") as file:
-            file.write(f"{codigo}, {nombre}, {descripcion}\n")
+            file.write(f"\n{codigo}, {nombre}, {descripcion}")
         self.vista.mostrarMensaje("Tratamiento agregado con éxito.")
         self.actualizarArchivoTratamientos()
 
@@ -63,8 +63,9 @@ class ControladorTratamiento:
                 self.vista.mostrarMensaje("tratamiento eliminado")
                 tratamientoEncontrado= True
                 break
-            else:
-                self.vista.mostrarMensaje("tratamiento no encontrado")
+        else:
+            self.vista.mostrarMensaje("tratamiento no encontrado")
+
 
     def buscarObjeto(self,tratamiento):
         for i in self.listaTratamientos:
