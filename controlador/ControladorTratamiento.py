@@ -1,3 +1,4 @@
+from pathlib import Path
 from vista.VistaTratamiento import VistaTratamiento
 from modelo.Tratamiento import Tratamiento
 
@@ -6,14 +7,17 @@ class ControladorTratamiento:
         self.vista = VistaTratamiento()
         self.listaTratamientos = []
 
+        base_dir = Path(__file__).resolve().parent.parent
+        self.ruta_tratamiento = base_dir / "archivos" / "tratamientos.txt"
+
     def cargarArchivoTratamientos(self):
-        with open("archivos/tratamientos.txt", encoding="utf-8") as archivo:
+        with open(self.ruta_tratamiento, encoding="utf-8") as archivo:
             for linea in archivo.readlines():
                 codigo, nombre, descripcion= linea.strip().split(",")
                 self.listaTratamientos.append(Tratamiento(codigo, nombre, descripcion))
 
     def actualizarArchivoTratamientos(self):
-        with open("archivos/tratamientos.txt", "w", encoding="utf-8") as archivo:
+        with open(self.ruta_tratamiento, "w", encoding="utf-8") as archivo:
             for tratamientos in self.listaTratamientos:
                 archivo.write(f"{tratamientos.getCodigo()}, {tratamientos.getNombre()}, {tratamientos.getDescripcion()}\n")
 
@@ -36,7 +40,7 @@ class ControladorTratamiento:
         nombre, descripcion = self.vista.obtenerTratamiento()
         nuevoTratamiento= Tratamiento(codigo, nombre, descripcion)
         self.listaTratamientos.append(nuevoTratamiento)
-        with open('archivos/tratamientos.txt', 'a', encoding="utf-8") as file:
+        with open(self.ruta_tratamiento, 'a', encoding="utf-8") as file:
             file.write(f"\n{codigo}, {nombre}, {descripcion}")
         self.vista.mostrarMensaje("Tratamiento agregado con éxito.")
         self.actualizarArchivoTratamientos()

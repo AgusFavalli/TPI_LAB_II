@@ -1,3 +1,4 @@
+from pathlib import Path
 from vista.VistaVacunas import VistaVacunas
 from modelo.Vacuna import Vacuna
 
@@ -6,14 +7,17 @@ class ControladorVacuna:
         self.vista = VistaVacunas()
         self.listaVacunas = []
 
+        base_dir = Path(__file__).resolve().parent.parent
+        self.ruta_vacunas = base_dir / "archivos" / "vacunas.txt"
+
     def cargarArchivoVacunas(self):
-        with open("archivos/vacunas.txt") as archivo:
+        with open(self.ruta_vacunas) as archivo:
             for linea in archivo.readlines():
                 codigo, nombre, descripcion= linea.strip().split(",")
                 self.listaVacunas.append(Vacuna(codigo, nombre, descripcion))
 
     def actualizarArchivoVacunas(self):
-        with open("archivos/vacunas.txt", "w", encoding="utf-8") as archivo:
+        with open(self.ruta_vacunas, "w", encoding="utf-8") as archivo:
             for vacuna in self.listaVacunas:
                 archivo.write(f"{vacuna.getCodigo()},{vacuna.getNombre()},{vacuna.getDescripcion()}\n")
 
@@ -37,7 +41,7 @@ class ControladorVacuna:
         nombre, descripcion = self.vista.obtenerVacuna()
         nuevaVacuna= Vacuna(codigo,nombre,descripcion)
         self.listaVacunas.append(nuevaVacuna)
-        with open('archivos/vacunas.txt', 'a', encoding="utf-8") as file:
+        with open(self.ruta_vacunas, 'a', encoding="utf-8") as file:
             file.write(f"{codigo}, {nombre}, {descripcion}\n")
         self.vista.mostrarMensaje("Vacuna agregada con éxito.")
         self.actualizarArchivoVacunas()

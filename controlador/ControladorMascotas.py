@@ -1,3 +1,4 @@
+from pathlib import Path
 from vista.VistaMascotas import VistaMascotas
 from modelo.Mascota import Mascota
 from controlador.ControladorRaza import ControladorRaza
@@ -10,8 +11,11 @@ class ControladorMascotas:
         self.controladorRaza= controladorRaza
         self.controladorPersonas= controladorPersonas
 
+        base_dir = Path(__file__).resolve().parent.parent
+        self.ruta_mascotas = base_dir / "archivos" / "mascotas.txt"
+
     def cargarArchivoMascotas(self):
-        with open("archivos/mascotas.txt") as archivo:
+        with open(self.ruta_mascotas) as archivo:
             for linea in archivo.readlines():
                 codigo, nombre, especie, raza, propietario= linea.strip().split(",")
                 #objRaza= self.controladorRaza.buscarObjeto(raza)
@@ -19,7 +23,7 @@ class ControladorMascotas:
                 self.listaMascotas.append(Mascota(codigo, nombre, especie, raza, propietario))
 
     def actualizarArchivoMascotas(self):
-        with open("archivos/mascotas.txt", "w", encoding="utf-8") as archivo:
+        with open(self.ruta_mascotas, "w", encoding="utf-8") as archivo:
             for mascota in self.listaMascotas:
                 archivo.write(f"{mascota.getCodigo()}, {mascota.getNombre()}, {mascota.getEspecie()}, {mascota.getRaza()}, {mascota.getPropietario()}\n")
     def listadoMascotas(self):
@@ -46,7 +50,7 @@ class ControladorMascotas:
         nombre, especie, raza, propietario = self.vista.obtenerMascota()
         nuevaMascota= Mascota(codigo,nombre,especie,raza,propietario)
         self.listaMascotas.append(nuevaMascota)
-        with open('archivos/mascotas.txt', 'a', encoding="utf-8") as file:
+        with open(self.ruta_mascotas, 'a', encoding="utf-8") as file:
             file.write(f"{codigo},{nombre},{especie},{raza},{propietario}\n")
         self.vista.mostrarMensaje("Mascota agregada con éxito.")
         self.actualizarArchivoMascotas()

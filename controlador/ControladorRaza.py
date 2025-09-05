@@ -1,3 +1,4 @@
+from pathlib import Path
 from vista.VistaRaza import VistaRaza
 from modelo.Raza import Raza
 
@@ -6,14 +7,17 @@ class ControladorRaza:
         self.vista= VistaRaza()
         self.listaRazas=[]
 
+        base_dir = Path(__file__).resolve().parent.parent
+        self.ruta_raza = base_dir / "archivos" / "razas.txt"
+
     def cargarArchivoRazas(self):   #carga el archivo en una lista, se instancia la clase
-        with open("archivos/razas.txt") as archivo:
+        with open(self.ruta_raza) as archivo:
             for linea in archivo.readlines():
                 codigo, nombre= linea.strip().split(",")
                 self.listaRazas.append(Raza(codigo, nombre))
 
     def actualizarArchivoRazas(self):
-        with open("archivos/razas.txt", "w", encoding="utf-8") as archivo:
+        with open(self.ruta_raza, "w", encoding="utf-8") as archivo:
             for raza in self.listaRazas:
                 archivo.write(f"{raza.getCodigo()},{raza.getNombre()}\n")
 
@@ -30,7 +34,7 @@ class ControladorRaza:
         nombre= self.vista.obtenerRaza()
         nuevaRaza= Raza(codigo, nombre)
         self.listaRazas.append(nuevaRaza)
-        with open('archivos/razas.txt', 'a', encoding="utf-8") as file:   #al agregar una nueva raza agrega dos variables en una linea
+        with open(self.ruta_raza, 'a', encoding="utf-8") as file:   #al agregar una nueva raza agrega dos variables en una linea
             file.write(f"{codigo}, {nombre}\n")
         self.vista.mostrarMensaje("Raza agregada con éxito.")
         self.actualizarArchivoRazas()

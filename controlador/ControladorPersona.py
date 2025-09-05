@@ -1,3 +1,4 @@
+from pathlib import Path
 from vista.VistaPersona import VistaPersona
 from modelo.Persona import Propietario, Veterinario
 
@@ -8,27 +9,36 @@ class ControladorPersona:
         self.listaPropietarios=[]
         self.listaVeterinarios=[]
 
+        base_dir = Path(__file__).resolve().parent.parent
+        self.ruta_personas = base_dir / "archivos" / "personas.txt"
+
     def cargarArchivoPersonas(self):
-        with open("archivos/personas.txt", encoding="utf-8") as archivo:
-            for linea in archivo.readlines():
-                datos = linea.strip().split(",")
-                if len(datos) == 4:
-                    codigo, nombre, direccion, telefono = datos
-                    veterinario= Veterinario(codigo, nombre, direccion, telefono)
-                    self.listaVeterinarios.append(veterinario)
-                    self.listaPersonas.append(veterinario)
-                elif len(datos) == 5:
-                    codigo, nombre, direccion, telefono, numMascota= datos
-                    propietario= Propietario(codigo, nombre, direccion, telefono, numMascota)
-                    self.listaPropietarios.append(propietario)
-                    self.listaPersonas.append(propietario)
+        try:
+            with open(self.ruta_personas, encoding="utf-8") as archivo:
+                for linea in archivo:
+                    datos = linea.strip().split(",")
+                    if len(datos) == 4:
+                        codigo, nombre, direccion, telefono = datos
+                        veterinario= Veterinario(codigo, nombre, direccion, telefono)
+                        self.listaVeterinarios.append(veterinario)
+                        self.listaPersonas.append(veterinario)
+                    elif len(datos) == 5:
+                        codigo, nombre, direccion, telefono, numMascota= datos
+                        propietario= Propietario(codigo, nombre, direccion, telefono, numMascota)
+                        self.listaPropietarios.append(propietario)
+                        self.listaPersonas.append(propietario)
+        except FileNotFoundError:
+            print(f"⚠️ No se encontró el archivo {self.ruta_personas}. Se creará vacío.")
+            self.ruta_personas.parent.mkdir(parents=True, exist_ok=True)
+            self.ruta_personas.touch()
 
     # función que permite guardar los datos en el archivo .txt.
     def agregarPersonas(self):
         opcion= self.vista.opcionPersona()
         codigo = len(self.listaPersonas) + 1
         nombre, direccion, telefono = self.vista.obtenerDatosPersona()
-        with open('archivos/personas.txt', 'a', encoding="utf-8") as file:
+
+        with open(self.ruta_personas, 'a', encoding="utf-8") as file:
             if opcion == "1":
                 veterinario = Veterinario(codigo, nombre, direccion, telefono)
                 file.write(f"{codigo},{nombre},{direccion},{telefono}\n")
@@ -49,13 +59,13 @@ class ControladorPersona:
         if opcion == "1":
             veterinario_modificar= self.buscarObjetoVeterinario(persona_actual)
             veterinario_modificar.setNombre(nueva_persona)
-            with open('archivos/personas.txt', 'w', encoding="utf-8") as file:
+            with open(self.ruta_personas, 'w', encoding="utf-8") as file:
                 for veterinario in self.listaPersonas:
                     file.write(f"{veterinario.getCodigo()},{veterinario.getNombre()},{veterinario.getDireccion()}, {veterinario.getTelefono()}\n")
         elif opcion =="2":
             persona_modificar= self.buscarObjetoPropietario(persona_actual)
             persona_modificar.setNombre(nueva_persona)
-            with open('archivos/personas.txt', 'w', encoding="utf-8") as file:
+            with open(self.ruta_personas, 'w', encoding="utf-8") as file:
                 for propietario in self.listaPersonas:
                     file.write(f"{propietario.getCodigo()},{propietario.getNombre()},{propietario.getDireccion()}, {propietario.getTelefono()}, {propietario.getMascota()}\n")
         self.vista.mostrarMensaje("la persona fue modificada con exito")
@@ -72,7 +82,7 @@ class ControladorPersona:
                 elif codigo == "2": #propietario
                     self.listaPropietarios.remove(i)
 
-                with open ("archivos/personas.txt", "w+") as file:
+                with open (self.ruta_personas, "w+") as file:
                     for linea in self.listaPersonas:
                         if codigo == "1":
                             file.write(f"{linea.getCodigo()}, {linea.getNombre()}, {linea.getDireccion()}, {linea.getTelefono()}")

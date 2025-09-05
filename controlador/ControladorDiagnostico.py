@@ -1,3 +1,4 @@
+from pathlib import Path
 from vista.VistaDiagnostico import VistaDiagnostico
 from modelo.Diagnostico import Diagnostico
 
@@ -8,11 +9,13 @@ class ControladorDiagnostico:
         self.controladorTratamiento= controladorTratamiento
         self.controladorVacunas= controladorVacunas
 
+        base_dir = Path(__file__).resolve().parent.parent
+        self.ruta_diagnosticos = base_dir / "archivos" / "diagnosticos.txt"
 
     def cargarArchivoDiagnosticos(self):
         self.listaDiagnosticos = []  # Reiniciar la lista de diagnósticos
         self.contadorDiagnostico = {}  # Reiniciar el contador de diagnósticos
-        with open("archivos/diagnosticos.txt", encoding="utf-8") as archivo:
+        with open(self.ruta_diagnosticos, encoding="utf-8") as archivo:
             for linea in archivo.readlines():
                 codigo, descripcion, tratamientos, vacunas = linea.strip().split(",")
                 objTratamientos = self.controladorTratamiento.buscarObjetoTratamiento(tratamientos)
@@ -42,7 +45,7 @@ class ControladorDiagnostico:
         nuevoDiagnostico.registrarTratamiento(tratamiento)
         nuevoDiagnostico.registrarVacuna(vacunas)
         self.listaDiagnosticos.append(nuevoDiagnostico)
-        with open('archivos/diagnosticos.txt', 'a', encoding="utf-8") as file:
+        with open(self.ruta_diagnosticos, 'a', encoding="utf-8") as file:
             file.write(f"{codigo},{descripcion},{tratamiento},{vacunas}\n")
         self.vista.mostrarMensaje("Diagnostico agregado con éxito.")
 
@@ -53,7 +56,7 @@ class ControladorDiagnostico:
         if diagnostico_modificar:
             diagnostico_modificar.setDescripcion(nuevo_diagnostico)
             self.vista.mostrarMensaje("El diagnostico fue modificado con exito")
-            with open('archivos/diagnosticos.txt', 'w', encoding="utf-8") as file:
+            with open(self.ruta_diagnosticos, 'w', encoding="utf-8") as file:
                 for diagnostico in self.listaDiagnosticos:
                     objVacuna= self.controladorVacunas.buscarNombreVacuna(diagnostico.getVacunas())
                     objTratamiento= self.controladorTratamiento.buscarNombreTratamiento(diagnostico.getTratamientos())
@@ -72,7 +75,7 @@ class ControladorDiagnostico:
         for i in self.listaDiagnosticos:
             if str(i.getCodigo()) == codigo:
                 self.listaDiagnosticos.remove(i)
-                with open("archivos/diagnosticos.txt", "w+", encoding="utf-8") as file:
+                with open(self.ruta_diagnosticos, "w+", encoding="utf-8") as file:
                     for linea in self.listaDiagnosticos:
                         file.write(f"{linea.getCodigo()}, {linea.getDescripcion()}, {linea.getTratamientos()}, {linea.getVacunas()}")
                 self.vista.mostrarMensaje("diagnostico eliminado")
